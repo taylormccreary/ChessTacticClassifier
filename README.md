@@ -1,8 +1,4 @@
-
 # Chess Tactic Classifier
-<img src="trapped_piece_example.png" width="30%">
-<img src="fork_example.png" width="30%">
-<img src="skewer_example.png" width="30%">
 A program that classifies chess tactics based on the concepts they demonstrate.
 
 ## Table of Contents
@@ -15,6 +11,8 @@ A program that classifies chess tactics based on the concepts they demonstrate.
 
 ## Abstract
 To improve their skills, many chess players practice simple chess puzzles of one or two moves. These puzzles can be grouped based on the different concepts or strategies they illustrate, and learning and recognizing these patterns is a key skill for competitive chess players. We are going to build a program that recognizes three types of tactics: forks, skewers and trapped pieces.
+
+<img src="trapped_piece_example.png" width="30%"><img src="fork_example.png" width="30%"><img src="skewer_example.png" width="30%">
 
 ## Timeline
 ### Week 3
