@@ -1,6 +1,8 @@
 
 # Chess Tactic Classifier
-<img src="trapped_piece_example.png" width="40%">
+<img src="trapped_piece_example.png" width="30%">
+<img src="fork_example.png" width="30%">
+<img src="skewer_example.png" width="30%">
 A program that classifies chess tactics based on the concepts they demonstrate.
 
 ## Table of Contents
