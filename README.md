@@ -1,7 +1,7 @@
 
 # Chess Tactic Classifier
 ![](images/spotify-banner.png)
-A suite of data visualization tools designed to help users better understand their music taste.
+A program that classifies chess tactics based on the concepts they demonstrate.
 
 ## Table of Contents
 - Abstract
@@ -12,7 +12,7 @@ A suite of data visualization tools designed to help users better understand the
 - End Goal
 
 ## Abstract
-<DESCRIBE PROJECT W/ CONTEXT>
+To improve their skills, many chess players practice simple chess puzzles of one or two moves. These puzzles can be grouped based on the different concepts or strategies they illustrate, and learning and recognizing these patterns is a key skill for competitive chess players. We are going to build a program that recognizes three types of tactics: forks, skewers and trapped pieces.
 
 ## Timeline
 ### Week 3
