@@ -1,6 +1,6 @@
 
 # Chess Tactic Classifier
-![](https://www.chess.com/dynboard?fen=r1b3k1/1pp3pn/p1n2r2/2Bp3p/4pP1P/P2B4/1PP1N1P1/R4RK1 w - - 0 2&board=brown&piece=book&size=3&flip=true)
+![](trapped_piece_example.png)
 A program that classifies chess tactics based on the concepts they demonstrate.
 
 ## Table of Contents
