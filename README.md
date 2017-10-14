@@ -43,11 +43,9 @@ To improve their skills, many chess players practice simple chess puzzles of one
 - python for scraping data
 - python for machine learning
 - python (django) / js for webapp building
-- postgreSQL for storing and serving data
 
 ## Club resources required
-- may need money for AWS servers to serve app if its good
-- need 3 people who want to do data visualizations
+- guidance on web scraping and building the webapp
 
 ## End Goal
-A webapp that prompts users to authenticate our app to get their data from spotify before providing visualization tools to
+A webapp that users can copy and paste a chess position (in the form of an FEN string) and see the position displayed, with the category of tactic the program outputs. 
