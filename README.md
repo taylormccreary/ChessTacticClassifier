@@ -16,30 +16,28 @@ A suite of data visualization tools designed to help users better understand the
 
 ## Timeline
 ### Week 3
-- Verify data source, ask questions
+- Verify data source, web scraping, have data
 
 ### Week 4
-- Get data, assign questions to team members (start thinking about it)
+- Clean data, data features
 
 ### Week 5
-- Have data, clean data
+- Clean data, design models
 
 ### Week 6
-- Started coding data viz tools
+- Design models, UI design
 
 ### Week 7
-- work on data visualizations
+- Design models, UI design
 
 ### Week 8
-- finished data visualizations
-- create webapp
+- Polishing porject
 
 ### Week 9
-- optimize data visualization tools for webapp
-- implement authentication for webapp
+- Buffer week
 
 ## Data sources
-- Spotify, Pandora, Soundhound API
+- Chess.com
 
 ## Technologies
 - python for scraping data
