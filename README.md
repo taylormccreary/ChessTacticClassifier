@@ -45,7 +45,7 @@ To improve their skills, many chess players practice simple chess puzzles of one
 - python (django) / js for webapp building
 
 ## Club resources required
-- guidance on web scraping and building the webapp
+- guidance on web scraping, machine learning, and building the webapp
 
 ## End Goal
 A webapp that users can copy and paste a chess position (in the form of an FEN string) and see the position displayed, with the category of tactic the program outputs. 
