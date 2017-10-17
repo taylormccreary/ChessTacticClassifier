@@ -47,7 +47,7 @@ To improve their skills, many chess players practice simple chess puzzles of one
 - Design models, UI design
 
 ### Week 8
-- Polishing porject
+- Polishing project
 
 ### Week 9
 - Buffer week
