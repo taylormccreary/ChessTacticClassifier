@@ -24,7 +24,7 @@ To improve their skills, many chess players practice simple chess puzzles of one
    <img src="fork_example.png" align="middle"> 
   </td>
   <td>
-   <h3> Skewer</h3>
+   <h3>Skewer</h3>
    <img src="skewer_example.png" align="middle">
   </td>
  </tr>
