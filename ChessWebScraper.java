@@ -1,13 +1,12 @@
 package chessHtml;
 
-//import java.lang.*;
 import java.io.BufferedReader;
-//import java.io.FileNotFoundException;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-//import java.io.UnsupportedEncodingException;
+import java.io.UnsupportedEncodingException;
 import java.lang.StringBuilder;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -16,7 +15,11 @@ import java.util.Scanner;
 
 public class ChessWebScraper {
 
-	public static void main(String[] args) throws Exception, Exception {
+	// public static void main(String[] args) throws Exception, Exception {
+
+	public static void webScrapeUrlList() throws Exception, Exception {
+
+		// StringBuilder word = new StringBuilder();
 		StringBuilder word = new StringBuilder();
 		URL url;
 		BufferedReader br;
@@ -25,7 +28,8 @@ public class ChessWebScraper {
 		int arraySize = 0;
 		int pageCount = 0;
 		String onePositionList[] = new String[arraySize];
-		//you can change the name to .csv, or .txt, whatever format you want
+
+		// you can change the name to .csv, or .txt, whatever format you want
 		PrintWriter writer = new PrintWriter("HtmlLinks.csv", "UTF-8");
 
 		// asking how many web pages you want to read
@@ -36,37 +40,39 @@ public class ChessWebScraper {
 
 		while (pageCount < numberOfPages) {
 			pageCount++;
+			System.out.println(pageCount);
 
-			// getting html source code and throwing it into a stringbuilder
-			try {
-				url = new URL("https://www.chess.com/tactics/problems?tagId=11&page=" + pageCount);
-				HttpURLConnection httpcon = (HttpURLConnection) url.openConnection();
-				httpcon.addRequestProperty("User-Agent", "Mozilla/4.0");
+			 // getting html source code and throwing it into a stringbuilder
+			 try {
+			 url = new
+			 URL("https://www.chess.com/tactics/problems?tagId=11&page=" +
+			 pageCount);
+			 HttpURLConnection httpcon = (HttpURLConnection)
+			 url.openConnection();
+			 httpcon.addRequestProperty("User-Agent", "Mozilla/4.0");
+			
+			 is = httpcon.getInputStream();
+			 br = new BufferedReader(new InputStreamReader(is));
+			
+			 while ((line = br.readLine()) != null) {
+			 word = word.append(line);
+			 }
+			 } catch (IOException e) {
+			 String error = e.toString();
+			 throw new RuntimeException(e);
+			 }
+		//	word = HtmlSourceCode.getSource("https://www.chess.com/tactics/problems?tagId=11&page=" + pageCount);
 
-				is = httpcon.getInputStream();
-				br = new BufferedReader(new InputStreamReader(is));
-
-				while ((line = br.readLine()) != null) {
-					word = word.append(line);
-					// System.out.println(line);
-				}
-				// System.out.println(">1<");
-				// System.out.println(word);
-				// System.out.println(">2<");
-			} catch (IOException e) {
-				String error = e.toString();
-				throw new RuntimeException(e);
-			}
-			// System.out.println(">3<");
-
-			// finding the 1 indexes
+			// finding the 1 indexes, and storing into a string array
+			// could change this array to an integer array, would clean up the
+			// code a bit
 			int i = word.indexOf(">1</a>");
 			while (i >= 0) {
-				System.out.println(i);
+				// System.out.println(i);
 				arraySize++;
 				onePositionList = Arrays.copyOf(onePositionList, arraySize);
 				onePositionList[arraySize - 1] = Integer.toString(i);
-				System.out.println(Arrays.toString(onePositionList));
+				// System.out.println(Arrays.toString(onePositionList));
 				i = word.indexOf(">1</a>", i + 1);
 			}
 
@@ -78,20 +84,11 @@ public class ChessWebScraper {
 					writer.println(word.substring(Integer.parseInt(onePositionList[j]) - 55,
 							Integer.parseInt(onePositionList[j]) - 20));
 				}
-				// System.out.println(word.substring(Integer.parseInt(onePositionList[j])-55,
-				// Integer.parseInt(onePositionList[j])-20));
 			}
 			
-
-			// Writing html source code to a text file
-			// PrintWriter writer = new PrintWriter("the-file-name.txt",
-			// "UTF-8");
-			// writer.println("The first line");
-			// writer.println(word);
-			// writer.close();
 		}
 		writer.close();
-
+		System.out.println("Finished");
 	}
 
 }
