@@ -17,15 +17,15 @@ To improve their skills, many chess players practice simple chess puzzles of one
  <tr>
   <td>
    <h3>Trapped Piece</h3>
-   <img src="trapped_piece_example.png" align="middle">
+   <img src="example_images/trapped_piece_example.png" align="middle">
   </td>
   <td>
    <h3>Fork</h3>
-   <img src="fork_example.png" align="middle"> 
+   <img src="example_images/fork_example.png" align="middle"> 
   </td>
   <td>
    <h3>Skewer</h3>
-   <img src="skewer_example.png" align="middle">
+   <img src="example_images/skewer_example.png" align="middle">
   </td>
  </tr>
  </table>
