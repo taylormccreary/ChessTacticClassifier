@@ -1,0 +1,43 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+    {
+        "type": "java",
+        "name": "Debug (Launch)",
+        "request": "launch",
+        "mainClass": "",
+        "args": ""
+    },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ChessBoardWithColumnsAndRows",
+            "request": "launch",
+            "mainClass": "chessHtml.ChessBoardWithColumnsAndRows",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Main",
+            "request": "launch",
+            "mainClass": "chessHtml.Main",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-testing",
+            "request": "launch",
+            "mainClass": "chessHtml.testing",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Attach)",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 0
+        }
+    ]
+}

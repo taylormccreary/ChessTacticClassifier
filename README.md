@@ -33,6 +33,9 @@ To improve their skills, many chess players practice simple chess puzzles of one
 ## Timeline
 ### Week 3
 - Verify data source, web scraping, have data
+- fork.csv
+- FEN, Qe3, d4, white
+- FEN, b6, Be4, black
 
 ### Week 4
 - Clean data, data features
