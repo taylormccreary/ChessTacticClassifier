@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class GetHtmlLinks {
-	
+
 	public static void search() throws Exception, Exception {
 		StringBuilder word = new StringBuilder();
 		int arraySize = 0;
@@ -15,16 +15,38 @@ public class GetHtmlLinks {
 		// // you can change the name to .csv, or .txt, whatever format you want
 		PrintWriter writer = new PrintWriter("HtmlLinks.csv", "UTF-8");
 
-		// asking how many web pages you want to read
+		// asking how many web pages you want to read, and what type you want
 		Scanner reader = new Scanner(System.in);
 		System.out.println("Enter a number of web pages you want: ");
 		int numberOfPages = reader.nextInt();
+		System.out.println("Enter 1 for fork, 2 for skewer, or 3 for Trapped Piece ");
+		Main.type = reader.nextInt();
+		while (Main.type != 1 && Main.type != 2 && Main.type != 3) {
+			System.out.println("Enter 1 for fork, 2 for skewer, or 3 for Trapped Piece ");
+			Main.type = reader.nextInt();
+		}
 		reader.close();
+		
+		//assigning the type to the correct url
+		switch (Main.type) {
+		case 1:
+			Main.type = 11;
+			Main.fileName = "fork.csv";
+			break;
+		case 2:
+			Main.type = 26;
+			Main.fileName = "skewer.csv";
+			break;
+		case 3:
+			Main.type = 29;
+			Main.fileName = "trappedPiece.csv";
+		default:
+		}
 
 		while (pageCount < numberOfPages) {
 			pageCount++;
-			word = word.append(
-					HtmlSourceCode.getSource("https://www.chess.com/tactics/problems?tagId=11&page=" + pageCount));
+			word = word.append(HtmlSourceCode
+					.getSource("https://www.chess.com/tactics/problems?tagId=" + Main.type + "&page=" + pageCount));
 
 			// finding the 1 indexes, and storing into a string array
 			// could change this array to an integer array, would clean up the

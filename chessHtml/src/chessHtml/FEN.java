@@ -21,7 +21,7 @@ public class FEN {
 			indexPointer++;
 		indexEnd = indexPointer;
 
-		System.out.println(htmlSourceCode.substring(indexStart, indexEnd));
+		//System.out.println(htmlSourceCode.substring(indexStart, indexEnd));
 
 		return htmlSourceCode.substring(indexStart, indexEnd);
 	}

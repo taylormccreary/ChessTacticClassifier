@@ -9,13 +9,15 @@ import java.util.List;
 public class CompileData {
 
 	public static void useHtmlLinks() throws Exception {
-		PrintWriter writerFEN = new PrintWriter("FEN.csv", "UTF-8");
-		PrintWriter writerMove = new PrintWriter("Move.csv", "UTF-8");
+		
+		
+		PrintWriter writerCsv = new PrintWriter(Main.fileName, "UTF-8");
+		//PrintWriter writerMove = new PrintWriter("Move.csv", "UTF-8");
 		String CurrentSourceCode;
 
 		// reading html list into a string array
 		List<String> records = new ArrayList<String>();
-		List<String> FENs = new ArrayList<String>();
+		//List<String> FENs = new ArrayList<String>();
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader("HtmlLinks.csv"));
 			String line;
@@ -29,18 +31,19 @@ public class CompileData {
 		}
 
 		int recordIndex = 0;
+		writerCsv.println("FEN,firstMove,secondMove, whoFirst");
 		while (recordIndex < records.size()) {
 			
 			//loading...
 			System.out.println(records.size() - recordIndex);
 			CurrentSourceCode = HtmlSourceCode.getSource(records.get(recordIndex));
 
-			writerFEN.println(FEN.search(CurrentSourceCode));
-			writerMove.println(SolutionMove.search(CurrentSourceCode));
+			writerCsv.print(FEN.search(CurrentSourceCode) + ", ");
+			writerCsv.println(SolutionMove.search(CurrentSourceCode));
 			recordIndex++;
 		}
-		writerFEN.close();
-		writerMove.close();
+		writerCsv.close();
+		//writerMove.close();
 		// return null;
 		System.out.println("Finished");
 
