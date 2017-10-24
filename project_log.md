@@ -1,0 +1,13 @@
+## By 10/27/17:
+- Taylor
+    - reorganize Github repo
+    - update .md files
+    - look into venv
+    - add everyone to Slack channel
+- Shane
+    - get new FEN
+- Ryan
+    - get new FEN
+- Adam
+    - update java code to put all data in one .csv
+    - explore the data
