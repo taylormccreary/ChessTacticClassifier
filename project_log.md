@@ -1,9 +1,11 @@
 ## By 10/27/17:
 - Taylor
-    - reorganize Github repo
-    - update .md files
-    - look into venv
-    - add everyone to Slack channel
+    1. reorganize Github repo
+        - done except for moving .csv files to data
+    1. update .md files
+    * look into venv
+        - to activate venv: venv\Scripts\activate.bat
+    * add everyone to Slack channel
 - Shane
     - get new FEN
 - Ryan
