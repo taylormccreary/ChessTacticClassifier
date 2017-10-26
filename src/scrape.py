@@ -23,4 +23,5 @@ if __name__ == "__main__":
 
     soup = BeautifulSoup(content, "html.parser")
 
-    print(soup.title)
+    trs = soup.find("table", class_="table with-row-highlight table-tactics-problems")
+    print(trs.contents[1])
