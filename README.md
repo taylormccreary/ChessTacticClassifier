@@ -32,7 +32,10 @@ To improve their skills, many chess players practice simple chess puzzles of one
  
 ## Timeline
 ### Week 3
-- Verify data source, web scraping, have data
+- Plan web scraping process
+- scrape data from Chess.com
+- Get data into .csv files for each tactic type
+#### Example:
 - fork.csv
     - FEN, Qe3, d4, white
     - FEN, b6, Be4, black
@@ -43,9 +46,10 @@ To improve their skills, many chess players practice simple chess puzzles of one
     - squares attacked by piece that moved
     - occupied squares
     - pieces on the same line/diagonal as the piece that moved
+- Organize Github repo
 
 ### Week 5
-- Clean data, design models
+- Choose and extract features / Design models
 
 ### Week 6
 - Design models, UI design
