@@ -17,20 +17,21 @@ def open_as_firefox(url):
     file_from_url.close()
     return res
 
-def get_tactic_urls(tactic_id, num_tactics):
-    """returns the urls for the given # of tactics with given id"""
+def get_tactic_urls(tactic_id, page):
+    """returns the urls for the given page with given id"""
     url = "https://www.chess.com/tactics/problems?tagId=" + str(tactic_id)
     content = open_as_firefox(url)
     soup = BeautifulSoup(content, "html.parser")
-    table_of_tactics = soup.find("table")#, class_="table with-row-highlight table-tactics problems")
+    table_of_tactics = soup.find("table").find_all('tr')
     url_array = np.array([])
-    counter = 1
-    # while np.size(url_array) < num_tactics:
-    #     if table_of_tactics[counter]:
-    url_to_add = table_of_tactics[1]
-    url_array = np.append(url_array, url_to_add)
-    #     print("wahoo")
-    #     counter += 1
+    counter = 0
+    while counter < len(table_of_tactics):
+        t_url = "stub"
+        t_rating = "stub"
+        t_moves = "stub"
+        if t_rating < 1200 and t_moves < 2:
+            url_array = np.append(url_array, t_url)
+        counter += 1
     return url_array
 
 if __name__ == "__main__":
