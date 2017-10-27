@@ -47,6 +47,7 @@ To improve their skills, many chess players practice simple chess puzzles of one
     - occupied squares
     - pieces on the same line/diagonal as the piece that moved
 - Organize Github repo
+- Establish git workflow
 
 ### Week 5
 - Choose and extract features / Design models
