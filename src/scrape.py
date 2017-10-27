@@ -1,5 +1,6 @@
 """Testing web scraping with beautifulsoup"""
 import urllib.request
+import numpy as np
 from bs4 import BeautifulSoup
 
 def open_as_firefox(url):
@@ -16,12 +17,21 @@ def open_as_firefox(url):
     file_from_url.close()
     return res
 
-if __name__ == "__main__":
-    url = "https://www.chess.com/tactics/problems?tagId=11"
-
+def get_tactic_urls(tactic_id, num_tactics):
+    """returns the urls for the given # of tactics with given id"""
+    url = "https://www.chess.com/tactics/problems?tagId=" + str(tactic_id)
     content = open_as_firefox(url)
-
     soup = BeautifulSoup(content, "html.parser")
+    table_of_tactics = soup.find("table", class_="table with-row-highlight table-tactics problems")
+    url_array = np.array([])
+    counter = 1
+    while np.size(url_array) < num_tactics:
+        if table_of_tactics[counter]:
+            url_array = np.append(url_array, url)
+        print("wahoo")
+        counter += 1
+    return url_array
 
-    trs = soup.find("table", class_="table with-row-highlight table-tactics-problems")
-    print(trs.contents[1])
+if __name__ == "__main__":
+    get_tactic_urls(11,20)
+    print("Hi world")
