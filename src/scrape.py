@@ -22,16 +22,18 @@ def get_tactic_urls(tactic_id, num_tactics):
     url = "https://www.chess.com/tactics/problems?tagId=" + str(tactic_id)
     content = open_as_firefox(url)
     soup = BeautifulSoup(content, "html.parser")
-    table_of_tactics = soup.find("table", class_="table with-row-highlight table-tactics problems")
+    table_of_tactics = soup.find("table")#, class_="table with-row-highlight table-tactics problems")
     url_array = np.array([])
     counter = 1
-    while np.size(url_array) < num_tactics:
-        if table_of_tactics[counter]:
-            url_array = np.append(url_array, url)
-        print("wahoo")
-        counter += 1
+    # while np.size(url_array) < num_tactics:
+    #     if table_of_tactics[counter]:
+    url_to_add = table_of_tactics[1]
+    url_array = np.append(url_array, url_to_add)
+    #     print("wahoo")
+    #     counter += 1
     return url_array
 
 if __name__ == "__main__":
-    get_tactic_urls(11,20)
+    test = get_tactic_urls(11,20)
+    print(test)
     print("Hi world")
