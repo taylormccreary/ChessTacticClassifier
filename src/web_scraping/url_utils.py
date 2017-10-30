@@ -1,4 +1,5 @@
 """python module for web scraping with beautifulsoup"""
+import pandas as pd
 import urllib.request
 import numpy as np
 from bs4 import BeautifulSoup
@@ -43,17 +44,55 @@ def get_n_tactic_urls(tactic_id, n_urls):
         count += 1
     return url_array
 
-def fen_scrape(url):
+def get_fen_mover(fen):
+    """from fen string, get the simple fen and the mover separately"""
+    res = fen.replace('\\', '').split(' ')
+    res[1] = "white" if res[1] == 'w' else "black"
+    return res
+
+def get_moves(mvs):
+    """from string of moves, get each move"""
+    res = mvs.replace('\\', '').replace('.', '').split()
+    if len(res) > 3:
+        return [res[1], res[3]]
+    else:
+        return [res[1], res[2]]
+
+
+def fen_scrape(url, t_type):
     """take a chess.com tactic url and scrape fen and moves"""
     content = open_as_firefox(url)
     soup = BeautifulSoup(content, "html.parser")
-    res_string = "stub"
-    return res_string
+    # figure out what's in the soup and what we need from it
+    long_str = soup.find(class_="chess-board-container").get('ng-init').split('"')
+    fen_id = long_str.index("initialFen") # returns 13, so we want 15
+    fen_str = long_str[fen_id + 2]
+    clean_fen = get_fen_mover(fen_str)
+    moves_id = long_str.index(']\\n[FULL \\')
+    moves_str = long_str[moves_id + 1]
+    clean_moves = get_moves(moves_str)
+    res_arr = pd.DataFrame([[clean_fen[0], clean_moves[0], clean_moves[1], clean_fen[1], t_type]])
+    return res_arr
 
-if __name__ == "__main__":
-    #forks_array = get_n_tactic_urls(11, 15)
-    #print(forks_array)
-    tactic_url = "https://www.chess.com/tactics/31043"
-    tactic_str = fen_scrape(tactic_url)
-    print(tactic_str)
-    print("Hi world")
+def write_tactic_csv(fname, tactic_array):
+    """takes as input name of file and the array of tactics from fen_scrape
+    and writes line by line to a .csv"""
+    
+
+# if __name__ == "__main__":
+#     # forks_array = get_n_tactic_urls(11, 15)
+#     # df_urls = pd.DataFrame(forks_array)
+#     # df_urls.to_csv('urls.csv', index=False, header=["Tactic URL"])
+#     forks_array = pd.read_csv("urls.csv")
+#     print(forks_array)
+#     t_array = pd.DataFrame(columns=["FEN", "move1", "move2", "firstMover", "tacticType"])
+#     for f in forks_array:
+#         t_array = t_array.append(fen_scrape(f, "fork"))
+#         #t_array = np.append(t_array, fen_scrape(f, "fork"))
+#     #df = pd.DataFrame(t_array)
+#     t_array.to_csv("forks.csv")
+#     # #write_tactic_csv('test.csv', t_array)
+#     # # # tactic_url = "https://www.chess.com/tactics/31043"
+#     # # tactic_str = fen_scrape(tactic_url)
+#     # # print(tactic_str)
+#     # print("Hi world")
