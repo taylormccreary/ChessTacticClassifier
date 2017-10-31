@@ -24,25 +24,27 @@ def get_tactic_urls(tactic_id, page):
     content = open_as_firefox(url)
     soup = BeautifulSoup(content, "html.parser")
     table_of_tactics = soup.find("table").find_all('tr')
-    url_array = np.array([])
     counter = 0
+    url_list = [] 
     while counter < len(table_of_tactics):
         t_url = table_of_tactics[counter].find('a').get('href')
         t_rating = int(table_of_tactics[counter].find_all('td')[1].get_text())
         t_moves = int(table_of_tactics[counter].find_all('td')[4].get_text())
         if t_rating < 1200 and t_moves < 2:
-            url_array = np.append(url_array, t_url)
+            url_list.append(t_url)
         counter += 1
-    return url_array
+    return url_list
 
 def get_n_tactic_urls(tactic_id, n_urls):
     """returns n tactics with the given id number"""
     count = 1
-    url_array = np.array([])
-    while len(url_array) < n_urls:
-        url_array = np.append(url_array, get_tactic_urls(tactic_id, count))
+    url_list = []
+    while len(url_list) < n_urls:
+        #url_array = url_array.append(get_tactic_urls(tactic_id, count), ignore_index=True)
+        url_list.append(get_tactic_urls(tactic_id, n_urls))
         count += 1
-    return url_array
+    return np.array(url_list).flatten()
+#pd.DataFrame(url_list, columns=['url'])
 
 def get_fen_mover(fen):
     """from fen string, get the simple fen and the mover separately"""
