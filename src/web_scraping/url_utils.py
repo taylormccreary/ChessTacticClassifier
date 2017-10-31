@@ -2,6 +2,7 @@
 import pandas as pd
 import urllib.request
 import numpy as np
+import csv
 from bs4 import BeautifulSoup
 
 def open_as_firefox(url):
@@ -40,11 +41,11 @@ def get_n_tactic_urls(tactic_id, n_urls):
     count = 1
     url_list = []
     while len(url_list) < n_urls:
-        #url_array = url_array.append(get_tactic_urls(tactic_id, count), ignore_index=True)
-        url_list.append(get_tactic_urls(tactic_id, n_urls))
+        #url_list.append(get_tactic_urls(tactic_id, count))
+        url_list = url_list + get_tactic_urls(tactic_id, count)
         count += 1
-    return np.array(url_list).flatten()
-#pd.DataFrame(url_list, columns=['url'])
+    #return np.array(url_list).flatten()
+    return url_list
 
 def get_fen_mover(fen):
     """from fen string, get the simple fen and the mover separately"""
@@ -73,28 +74,20 @@ def fen_scrape(url, t_type):
     moves_id = long_str.index(']\\n[FULL \\')
     moves_str = long_str[moves_id + 1]
     clean_moves = get_moves(moves_str)
-    res_arr = pd.DataFrame([[clean_fen[0], clean_moves[0], clean_moves[1], clean_fen[1], t_type]])
+    res_arr = [clean_fen[0], clean_moves[0], clean_moves[1], clean_fen[1], t_type]
     return res_arr
 
-def write_tactic_csv(fname, tactic_array):
-    """takes as input name of file and the array of tactics from fen_scrape
+def write_tactic_csv(fname, tactic_url_array, t_type):
+    """takes as input name of file and the array of tactic urls
     and writes line by line to a .csv"""
+    with open(fname, 'w', newline='') as csvfile:
+        csv_writer = csv.writer(csvfile)
+        for u in tactic_url_array:
+            csv_writer.writerow(fen_scrape(u, t_type))
     
 
-# if __name__ == "__main__":
-#     # forks_array = get_n_tactic_urls(11, 15)
-#     # df_urls = pd.DataFrame(forks_array)
-#     # df_urls.to_csv('urls.csv', index=False, header=["Tactic URL"])
-#     forks_array = pd.read_csv("urls.csv")
-#     print(forks_array)
-#     t_array = pd.DataFrame(columns=["FEN", "move1", "move2", "firstMover", "tacticType"])
-#     for f in forks_array:
-#         t_array = t_array.append(fen_scrape(f, "fork"))
-#         #t_array = np.append(t_array, fen_scrape(f, "fork"))
-#     #df = pd.DataFrame(t_array)
-#     t_array.to_csv("forks.csv")
-#     # #write_tactic_csv('test.csv', t_array)
-#     # # # tactic_url = "https://www.chess.com/tactics/31043"
-#     # # tactic_str = fen_scrape(tactic_url)
-#     # # print(tactic_str)
-#     # print("Hi world")
+if __name__ == "__main__":
+    """here we just test getting the fens from the urls and writing to a csv"""
+    forks_array = pd.read_csv("C:\\Users\\Taylor McCreary\\OneDrive\\Classes\\Data Science\\ChessTacticClassifier\\src\\web_scraping\\urls.csv", header=None)
+    forks_urls = np.array(forks_array[0])
+    write_tactic_csv("forks.csv", forks_urls, "fork")
