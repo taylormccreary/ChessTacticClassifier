@@ -1,8 +1,8 @@
 """python module for web scraping with beautifulsoup"""
-import pandas as pd
-import urllib.request
-import numpy as np
 import csv
+import urllib.request
+import pandas as pd
+import numpy as np
 from bs4 import BeautifulSoup
 
 def open_as_firefox(url):
