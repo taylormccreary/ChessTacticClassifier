@@ -8,8 +8,8 @@ if __name__ == "__main__":
     SKEWERS = url_utils.get_n_tactic_urls(26, 15)
     TRAPPED = url_utils.get_n_tactic_urls(29, 15)
 
-    # alternatively, to load urls from csv:
-    # ARR = pd.read_csv("C:\\Users\\Taylor McCreary\\OneDrive\\Classes\\Data Science\\ChessTacticClassifier\\src\\web_scraping\\urls.csv", header=None)
+    # alternatively, to just load urls from csv:
+    # ARR = pd.read_csv("C:\\Users\\Taylor McCreary\\OneDrive\\Classes\\Data Science\\ChessTacticClassifier\\src\\web_scraping\\example_urls.csv", header=None)
     # FORKS = np.array(ARR[0])
 
     url_utils.write_tactic_csv("../../data/fork.csv", FORKS, "fork")
