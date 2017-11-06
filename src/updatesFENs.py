@@ -1,3 +1,5 @@
+"""This module takes the FENs with two moves from chess.com
+and 'plays' the first move, updating the FEN"""
 import chess
 
 fenDocument = open('..\\data\\fork.csv','r')
