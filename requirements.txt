@@ -1,0 +1,7 @@
+beautifulsoup4==4.6.0
+numpy==1.13.3
+pandas==0.21.0
+python-chess==0.20.1
+python-dateutil==2.6.1
+pytz==2017.3
+six==1.11.0
