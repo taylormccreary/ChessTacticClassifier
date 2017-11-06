@@ -1,0 +1,16 @@
+FEN,First Move,Second Move,Who Moved,Tactic
+r2qk2r/ppp2p1p/n2b1np1/3pp3/4P1b1/1PNB1Q1N/PBPP1PPP/R3K2R,Qe3,d4,white,fork
+rnb1kb1r/ppp2ppp/4p3/8/3P4/3B2N1/PPP2PqP/R2QK1NR,b6,Be4,black,fork
+r1b2rk1/pp1pbppp/2p2n2/8/4P3/q1NB2Q1/P1PB1PPP/1R2R1K1,Bd6,e5,black,fork
+r1b2rk1/pp2bppp/4q3/4p3/3pQ3/P2P3P/1PPBBPP1/R3K2R,Bg4,f5,white,fork
+r1b2rk1/ppp3bp/2n1p1p1/3p1n2/2PP1P1q/PP2P2N/4K1P1/RNBQ1B1R,Nf2,Ng3+,white,fork
+r2qkbnr/ppp2ppp/2npb3/8/3PPp2/1B3N2/PPP3PP/RNBQK2R,g5,d5,black,fork
+r4rk1/pbpn1ppp/1p1b1q1n/3pP3/3P1B2/2P3P1/PP1N1PBP/R2QR1K1,Nxe5,dxe5,black,fork
+6k1/1r6/b1p2pp1/3N4/6qP/PB1P4/1P1B4/2KR3R,Rxb3,Nxf6+,black,fork
+r1b2rk1/pppp1pp1/2n3np/2q1P3/1b2Q3/2NBBN2/PPP2PPP/2KR3R,Qe7,Nd5,black,fork
+rnbqk2r/ppp1ppbp/6p1/4n3/2B5/3P1Q2/PPP3PP/RNB1K1NR,Bb5+,c6,white,fork
+5rk1/2p3pp/1p3p2/4n3/5B2/r1P3P1/PRP2K1P/3R4,Ke3,Nc4+,white,fork
+3n4/p4n2/1pk1p1r1/1p1pp3/1P2P1N1/2NP1R2/PKP5/8,Ne3,d4,white,fork
+r1bqk2r/pppp1ppp/2n2n2/2b1p1N1/1PB1P3/8/P1PP1PPP/RNBQK2R,Bb6,Nxf7,black,fork
+r7/pr6/1nR3k1/1N3bp1/1P4p1/8/PR3PP1/6K1,Kf7,Nd6+,black,fork
+rnnqr3/p3bk1p/1pp3pB/2P1Pp2/2BP4/2N5/PP3P1P/R4RK1,Qd5,Nxd5,black,fork

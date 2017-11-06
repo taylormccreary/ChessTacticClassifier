@@ -82,9 +82,10 @@ def write_tactic_csv(fname, tactic_url_array, t_type):
     and writes line by line to a .csv"""
     with open(fname, 'w', newline='') as csvfile:
         csv_writer = csv.writer(csvfile)
+        csv_writer.writerow(["FEN", "First Move", "Second Move", "Who Moved", "Tactic"])
         for u in tactic_url_array:
             csv_writer.writerow(fen_scrape(u, t_type))
-    
+  
 
 if __name__ == "__main__":
     """here we just test getting the fens from the urls and writing to a csv"""

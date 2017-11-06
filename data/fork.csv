@@ -1,3 +1,4 @@
+FEN,First Move,Second Move,Who Moved,Tactic
 r2qk2r/ppp2p1p/n2b1np1/3pp3/4P1b1/1PNB1Q1N/PBPP1PPP/R3K2R,Qe3,d4,white,fork
 rnb1kb1r/ppp2ppp/4p3/8/3P4/3B2N1/PPP2PqP/R2QK1NR,b6,Be4,black,fork
 r1b2rk1/pp1pbppp/2p2n2/8/4P3/q1NB2Q1/P1PB1PPP/1R2R1K1,Bd6,e5,black,fork
