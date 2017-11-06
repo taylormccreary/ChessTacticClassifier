@@ -1,0 +1,16 @@
+FEN,First Move,Second Move,Who Moved,Tactic
+3r4/p4k1p/2B2pp1/1P6/5n2/2K3P1/P4P1P/4R3,Nd3,Rd1,black,skewer
+r1b2rk1/pp1p1ppp/3b4/4q3/4P3/2N3P1/PPP2P1P/R1BQ1RK1,f5,Bf4,black,skewer
+1rbr2k1/2p2ppp/p1n3q1/1p2P3/3P2n1/P1NB1N2/1PPQ2PP/R3K2R,Bf5,Nh4,black,skewer
+3b4/3r2p1/3p1p2/1k3Pp1/2p1P1P1/2B3P1/3R4/3K4,Ba5,Rd5+,black,skewer
+5b1r/pp1k1pp1/1nn1p2p/1qNpP2P/1P1P1PP1/P3BN2/2Q2K2/1R6,Bxc5,bxc5,black,skewer
+r2rb2k/2q1p1bp/4Q1p1/1P6/2P5/4B1NP/5PP1/4RRK1,Ra4,Bb6,black,skewer
+1R2k2r/5ppp/2bPpn1n/B2p2N1/8/2PBP3/P4PPP/6K1,Kd7,Rxh8,black,skewer
+3r4/R7/8/5k2/8/1P1Np3/P1K2b2/8,e2,Rf7+,black,skewer
+5r2/pp4pk/3R3p/1P6/P7/4K1PP/2r1p1P1/4R3,Rxe2,Re8+,white,skewer
+2r3k1/pp1q1ppp/3p4/3P1b2/8/3n2N1/PPBQ1PPP/K6R,Nxf2,Bxf5,black,skewer
+2k3r1/pp3p1p/8/3b4/5PP1/bPP3RP/K2P1P2/4R3,Bd6,Rd3,black,skewer
+3r1rk1/1b3pbp/p2ppqp1/1p6/3NPBP1/P6P/1P1Q4/RB2RNK1,e5,Bg5,black,skewer
+8/1Rp3rk/6q1/p2Q1p2/b2P3n/2P3P1/2P1RP1P/7K,Rb1,Bc6,white,skewer
+r6r/p1Q1bkpp/3Bq3/5p2/8/8/PPP2PPP/3R1RK1,Rhe8,Rfe1,black,skewer
+2kr3r/p1p2ppp/1pn1p1n1/4P2q/1b3P2/2NPQ2P/PP3KBP/R1B4R,Bxc6,Bc5,white,skewer
