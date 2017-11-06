@@ -53,6 +53,9 @@ To improve their skills, many chess players practice simple chess puzzles of one
 - Choose and extract features / Design models
 
 ### Week 6
+- figured out how virtual environments work
+    - save reqs with $ pip freeze > requirements.txt
+    - use $ pip install -r requirements.txt
 - Design models, UI design
 
 ### Week 7

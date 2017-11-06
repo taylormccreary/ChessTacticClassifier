@@ -1,4 +1,4 @@
-"""python module for web scraping with beautifulsoup"""
+"""python module for web scraping chess tactics with beautifulsoup"""
 import csv
 import urllib.request
 import pandas as pd
@@ -26,7 +26,7 @@ def get_tactic_urls(tactic_id, page):
     soup = BeautifulSoup(content, "html.parser")
     table_of_tactics = soup.find("table").find_all('tr')
     counter = 0
-    url_list = [] 
+    url_list = []
     while counter < len(table_of_tactics):
         t_url = table_of_tactics[counter].find('a').get('href')
         t_rating = int(table_of_tactics[counter].find_all('td')[1].get_text())
@@ -85,10 +85,10 @@ def write_tactic_csv(fname, tactic_url_array, t_type):
         csv_writer.writerow(["FEN", "First Move", "Second Move", "Who Moved", "Tactic"])
         for u in tactic_url_array:
             csv_writer.writerow(fen_scrape(u, t_type))
-  
+
 
 if __name__ == "__main__":
-    """here we just test getting the fens from the urls and writing to a csv"""
-    forks_array = pd.read_csv("C:\\Users\\Taylor McCreary\\OneDrive\\Classes\\Data Science\\ChessTacticClassifier\\src\\web_scraping\\example_urls.csv", header=None)
-    forks_urls = np.array(forks_array[0])
-    write_tactic_csv("forks.csv", forks_urls, "fork")
+    # Here we just test getting the fens from the urls and writing to a csv
+    FORK_ARR = pd.read_csv("C:\\Users\\Taylor McCreary\\OneDrive\\Classes\\Data Science\\ChessTacticClassifier\\src\\web_scraping\\example_urls.csv", header=None)
+    FORK_URLS = np.array(FORK_ARR[0])
+    write_tactic_csv("forks.csv", FORK_URLS, "fork")

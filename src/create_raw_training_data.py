@@ -1,4 +1,6 @@
-"""Update the FEN strings"""
+"""Takes the data in the csv files that was scraped from chess.com
+and cleans it, outputting it into a csv file of training data.
+This data can then be used to create features."""
 import pandas as pd
 import chess
 
