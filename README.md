@@ -57,6 +57,7 @@ To improve their skills, many chess players practice simple chess puzzles of one
     - save reqs with $ pip freeze > requirements.txt
     - use $ pip install -r requirements.txt
 - Design models, UI design
+-Adam: attacked piece is defended
 
 ### Week 7
 - Design models, UI design
