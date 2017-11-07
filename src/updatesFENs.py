@@ -5,6 +5,10 @@ import chess
 fenDocument = open('..\\data\\fork.csv','r')
 writeToDocument = open('..\\data\\updatedFENs.csv', 'r+')
 i = 0
+movePiece = []
+newLocation = []
+attack = []
+kingCheck = []
 for line in fenDocument.read().split('\n'):
     if i != 0:  
         # read one line of fen document
@@ -28,7 +32,35 @@ for line in fenDocument.read().split('\n'):
         for char in ' ':
             fen[1] = fen[1].replace(char, '')
             fen[2] = fen[2].replace(char, '')
-
+            
+        
+        #Find which piece moved, if it attacked, where it moved, and if king in check    
+        if fen[2].isupper() == true:
+            #seperate piece
+            movePiece.append(fen[2][0])
+            if fen[2][1] == 'x':
+                #check for attacks
+                attack.append('1')
+            else:
+                attack.append('0')
+        else:
+            #pawn moves
+            movePiece.append('p')
+            if fen[2][0] == 'x':
+                #check for attacks
+                attack.append('1')
+            else:
+                attack.append('0')
+        if fen[2][fen[2].length()-1] == '+':
+            kingCheck.append('1')
+            movestring = fen[2][fen[2].length()-3] + fen[2][fen[2].length()-2]
+            newLocation.append(movestring)
+        else:
+            kingCheck.append('0')
+            movestring = fen[2][fen[2].length()-2] + fen[2][fen[2].length()-1]
+            newLocation.append(movestring)
+        
+        
         board.push_san(fen[1])
         newFen = board.fen()
         writeToDocument.write(newFen + ',')
