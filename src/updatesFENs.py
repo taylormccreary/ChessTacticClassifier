@@ -37,28 +37,28 @@ for line in fenDocument.read().split('\n'):
         #Find which piece moved, if it attacked, where it moved, and if king in check    
         if fen[2].isupper() == true:
             #seperate piece
-            movePiece.append(fen[2][0])
+            movePiece = fen[2][0]
             if fen[2][1] == 'x':
                 #check for attacks
-                attack.append('1')
+                attack = '1'
             else:
-                attack.append('0')
+                attack = '0'
         else:
             #pawn moves
-            movePiece.append('p')
+            movePiece = 'p'
             if fen[2][0] == 'x':
                 #check for attacks
-                attack.append('1')
+                attack = '1'
             else:
-                attack.append('0')
+                attack = '0'
         if fen[2][fen[2].length()-1] == '+':
-            kingCheck.append('1')
+            kingCheck = '1'
             movestring = fen[2][fen[2].length()-3] + fen[2][fen[2].length()-2]
-            newLocation.append(movestring)
+            newLocation = movestring
         else:
-            kingCheck.append('0')
+            kingCheck = '0'
             movestring = fen[2][fen[2].length()-2] + fen[2][fen[2].length()-1]
-            newLocation.append(movestring)
+            newLocation = movestring
         
         
         board.push_san(fen[1])
@@ -66,6 +66,10 @@ for line in fenDocument.read().split('\n'):
         writeToDocument.write(newFen + ',')
         board.push_san(fen[2])
         newFen = board.fen()
-        writeToDocument.write(newFen + '\n')
+        writeToDocument.write(newFen + ',')
+        writeToDocument.write(movePiece + ',')
+        writeToDocument.write(attack + ',')
+        writeToDocument.write(newLocation + ',')
+        writeToDocument.write(kingCheck + '\n')
     i += 1
 writeToDocument.close()
