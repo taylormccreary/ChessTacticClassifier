@@ -29,5 +29,6 @@ if __name__ == "__main__":
     tactics_array["FEN"] = tactics_array.apply(get_full_fen, axis=1)
     tactics_array["tactic_fen"] = tactics_array.apply(update_fen, axis=1)
     tactics_array["move"] = tactics_array["Second Move"]
-    tactics_array[['tactic_fen', 'move', 'Tactic']].to_csv(
+    tactics_array["tactic"] = tactics_array["Tactic"]
+    tactics_array[['tactic_fen', 'move', 'tactic']].to_csv(
         '../data/training_data_unprocessed.csv', index=False)
