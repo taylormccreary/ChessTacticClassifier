@@ -5,10 +5,10 @@ import chess
 fenDocument = open('..\\data\\fork.csv','r')
 writeToDocument = open('..\\data\\updatedFENs.csv', 'r+')
 i = 0
-movePiece = []
-newLocation = []
-attack = []
-kingCheck = []
+movePiece = ""
+newLocation = ""
+attack = ""
+kingCheck = ""
 for line in fenDocument.read().split('\n'):
     if i != 0:  
         # read one line of fen document
