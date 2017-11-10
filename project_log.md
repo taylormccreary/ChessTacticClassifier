@@ -6,6 +6,9 @@
 - Shane
     1. push features code
     1. look into decision tree classifier, test data
+- Ryan
+    1. push features code
+    1. look into feature selection and data visualization
 
 ## By 11/6/17:
 Feature engineering
