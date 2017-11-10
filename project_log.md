@@ -1,3 +1,12 @@
+## By 11/13/17:
+- Taylor
+    1. Get Jupyter notebook up and running
+- Adam
+    1. push features code
+- Shane
+    1. push features code
+    1. look into decision tree classifier, test data
+
 ## By 11/6/17:
 Feature engineering
 - Taylor
