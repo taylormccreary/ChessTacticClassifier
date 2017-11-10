@@ -55,7 +55,6 @@ def is_tactic_check(df_elem):
 if __name__ == "__main__":
     df_data = pd.read_csv('..\\data\\training_data_unprocessed.csv')
     df_features = pd.DataFrame()
-    df_features["tactic"] = df_data["tactic"]
 
     # This might be useful info, but it's not really in a good format for a decision tree
     # or some such model right now, it creates lists of varying lengths
@@ -67,6 +66,7 @@ if __name__ == "__main__":
     df_features["queens_attacked"] = df_data.apply(num_piece_attacked, axis=1, args=(5,))
     df_features["value_attacked"] = df_data.apply(get_attacked_value, axis=1)
 
+    df_features["tactic"] = df_data["tactic"]
     # # Here are two examples of creating features to be part of df_features
     # # if the feature is built using only one variable, use map()
     # # if you need the whole row, use apply()
