@@ -12,6 +12,8 @@ Feature engineering
     1. get_final_square()
     1. is_check()
     1. get_piece_type()
+- Adam
+    1. get_defended_pieces()
 ## By 10/27/17:
 - Taylor
     1. reorganize Github repo
