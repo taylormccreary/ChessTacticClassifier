@@ -42,7 +42,7 @@ def get_attacked_value(df_elem):
 
 if __name__ == "__main__":
     df_data = pd.read_csv('..\\data\\training_data_unprocessed.csv')
-    #df_data["squares"] = df_data.apply(get_attacked_squares, axis=1)
+    df_data["squares"] = df_data.apply(get_attacked_squares, axis=1)
     df_data["pawns_attacked"] = df_data.apply(num_piece_attacked, axis=1, args=(1,))
     df_data["knights_attacked"] = df_data.apply(num_piece_attacked, axis=1, args=(2,))
     df_data["bishops_attacked"] = df_data.apply(num_piece_attacked, axis=1, args=(3,))
@@ -50,4 +50,11 @@ if __name__ == "__main__":
     df_data["queens_attacked"] = df_data.apply(num_piece_attacked, axis=1, args=(5,))
     df_data["value_attacked"] = df_data.apply(get_attacked_value, axis=1)
     #df_data["num_attacked_pieces"] = df_data.iloc[:, -5:].sum(axis=1)
-    print(df_data.iloc[0:5])
+    #print(df_data.corr())
+    #print(df_data.iloc[1:5])
+
+    import chess.svg
+    board = chess.Board("8/8/8/8/4N3/8/8/8 w - - 0 1")
+    squares = board.attacks(chess.E4)
+    chess.svg.board(board=board, squares=squares)  
+    
