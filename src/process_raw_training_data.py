@@ -2,6 +2,7 @@
 to create features that we use to train on"""
 import pandas as pd
 import chess
+import taylor_functions
 
 def get_is_check(fen):
     """uses the chess module to determine if a fen represents a position in check"""
