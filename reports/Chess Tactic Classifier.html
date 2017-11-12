@@ -11810,17 +11810,120 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>First, we need to gather the data by scraping tactic information from Chess.com. To do this we'll use the package BeautifulSoup:</p>
+<p>First, we need to gather the data by scraping tactic information from Chess.com. To do this we'll load a module we wrote that contains some useful functions. This module uses the BeautifulSoup package:</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">bs4</span> <span class="k">import</span> <span class="n">BeautifulSoup</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ..\src\web_scraping\url_utils.py</span>
+<span class="sd">&quot;&quot;&quot;python module for web scraping chess tactics with beautifulsoup&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="k">import</span> <span class="n">BeautifulSoup</span>
+
+<span class="k">def</span> <span class="nf">open_as_firefox</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;adds headers when using urllib.request.URLopener to avoid 403 error. Code from:</span>
+<span class="sd">    https://stackoverflow.com/questions/22877619/python3-urllib-error-httperror-http-error-403-forbidden&quot;&quot;&quot;</span>
+    <span class="c1">#u_obj = urllib.request.URLopener() # Python 3: urllib.request.URLOpener</span>
+    <span class="n">u_obj</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">u_obj</span><span class="o">.</span><span class="n">addheaders</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># u_obj.addheader(&#39;User-Agent&#39;, &#39;Mozilla/5.0&#39;)</span>
+    <span class="c1"># u_obj.addheader(&#39;Accept-Language&#39;, &#39;de-DE,de;q=0.9,en;q=0.8&#39;)</span>
+    <span class="c1"># u_obj.addheader(&#39;Accept&#39;, &#39;text/html, application/xml;q=0.9, application/xhtml+xml, image/png,\</span>
+    <span class="c1"># image/webp, image/jpeg, image/gif, image/x-xbitmap, */*;q=0.1&#39;)</span>
+    
+    <span class="n">u_obj</span><span class="o">.</span><span class="n">add_header</span><span class="p">(</span><span class="s1">&#39;User-Agent&#39;</span><span class="p">,</span> <span class="s1">&#39;Mozilla/5.0&#39;</span><span class="p">)</span>
+    <span class="n">u_obj</span><span class="o">.</span><span class="n">add_header</span><span class="p">(</span><span class="s1">&#39;Accept-Language&#39;</span><span class="p">,</span> <span class="s1">&#39;de-DE,de;q=0.9,en;q=0.8&#39;</span><span class="p">)</span>
+    <span class="n">u_obj</span><span class="o">.</span><span class="n">add_header</span><span class="p">(</span><span class="s1">&#39;Accept&#39;</span><span class="p">,</span> <span class="s1">&#39;text/html, application/xml;q=0.9, application/xhtml+xml, image/png,</span><span class="se">\</span>
+<span class="s1">    image/webp, image/jpeg, image/gif, image/x-xbitmap, */*;q=0.1&#39;</span><span class="p">)</span>
+    <span class="c1">#file_from_url = u_obj.open(url)</span>
+    <span class="n">file_from_url</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">u_obj</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">file_from_url</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">file_from_url</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+<span class="k">def</span> <span class="nf">get_tactic_urls</span><span class="p">(</span><span class="n">tactic_id</span><span class="p">,</span> <span class="n">page</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;returns the urls for the given page with given id&quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://www.chess.com/tactics/problems?tagId=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">tactic_id</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;&amp;page=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">open_as_firefox</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="s2">&quot;html.parser&quot;</span><span class="p">)</span>
+    <span class="n">table_of_tactics</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;table&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;tr&#39;</span><span class="p">)</span>
+    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">url_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">counter</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">table_of_tactics</span><span class="p">):</span>
+        <span class="n">t_url</span> <span class="o">=</span> <span class="n">table_of_tactics</span><span class="p">[</span><span class="n">counter</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">)</span>
+        <span class="n">t_rating</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">table_of_tactics</span><span class="p">[</span><span class="n">counter</span><span class="p">]</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;td&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get_text</span><span class="p">())</span>
+        <span class="n">t_moves</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">table_of_tactics</span><span class="p">[</span><span class="n">counter</span><span class="p">]</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;td&#39;</span><span class="p">)[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">get_text</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">t_rating</span> <span class="o">&lt;</span> <span class="mi">1200</span> <span class="ow">and</span> <span class="n">t_moves</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">url_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t_url</span><span class="p">)</span>
+        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">url_list</span>
+
+<span class="k">def</span> <span class="nf">get_n_tactic_urls</span><span class="p">(</span><span class="n">tactic_id</span><span class="p">,</span> <span class="n">n_urls</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;returns n tactics with the given id number&quot;&quot;&quot;</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">url_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">url_list</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n_urls</span><span class="p">:</span>
+        <span class="c1">#url_list.append(get_tactic_urls(tactic_id, count))</span>
+        <span class="n">url_list</span> <span class="o">=</span> <span class="n">url_list</span> <span class="o">+</span> <span class="n">get_tactic_urls</span><span class="p">(</span><span class="n">tactic_id</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="c1">#return np.array(url_list).flatten()</span>
+    <span class="k">return</span> <span class="n">url_list</span>
+
+<span class="k">def</span> <span class="nf">get_fen_mover</span><span class="p">(</span><span class="n">fen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;from fen string, get the simple fen and the mover separately&quot;&quot;&quot;</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">fen</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+    <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;white&quot;</span> <span class="k">if</span> <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;w&#39;</span> <span class="k">else</span> <span class="s2">&quot;black&quot;</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+<span class="k">def</span> <span class="nf">get_moves</span><span class="p">(</span><span class="n">mvs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;from string of moves, get each move&quot;&quot;&quot;</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">mvs</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">res</span><span class="p">[</span><span class="mi">3</span><span class="p">]]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">res</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
+
+
+<span class="k">def</span> <span class="nf">fen_scrape</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">t_type</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;take a chess.com tactic url and scrape fen and moves&quot;&quot;&quot;</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">open_as_firefox</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="s2">&quot;html.parser&quot;</span><span class="p">)</span>
+    <span class="c1"># figure out what&#39;s in the soup and what we need from it</span>
+    <span class="n">long_str</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">class_</span><span class="o">=</span><span class="s2">&quot;chess-board-container&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ng-init&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span>
+    <span class="n">fen_id</span> <span class="o">=</span> <span class="n">long_str</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;initialFen&quot;</span><span class="p">)</span> <span class="c1"># returns 13, so we want 15</span>
+    <span class="n">fen_str</span> <span class="o">=</span> <span class="n">long_str</span><span class="p">[</span><span class="n">fen_id</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span>
+    <span class="n">clean_fen</span> <span class="o">=</span> <span class="n">get_fen_mover</span><span class="p">(</span><span class="n">fen_str</span><span class="p">)</span>
+    <span class="n">moves_id</span> <span class="o">=</span> <span class="n">long_str</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;]</span><span class="se">\\</span><span class="s1">n[FULL </span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">moves_str</span> <span class="o">=</span> <span class="n">long_str</span><span class="p">[</span><span class="n">moves_id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">clean_moves</span> <span class="o">=</span> <span class="n">get_moves</span><span class="p">(</span><span class="n">moves_str</span><span class="p">)</span>
+    <span class="n">res_arr</span> <span class="o">=</span> <span class="p">[</span><span class="n">clean_fen</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">clean_moves</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">clean_moves</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">clean_fen</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">t_type</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">res_arr</span>
+
+<span class="k">def</span> <span class="nf">write_tactic_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">tactic_url_array</span><span class="p">,</span> <span class="n">t_type</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;takes as input name of file and the array of tactic urls</span>
+<span class="sd">    and writes line by line to a .csv&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
+        <span class="n">csv_writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">csvfile</span><span class="p">)</span>
+        <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="s2">&quot;FEN&quot;</span><span class="p">,</span> <span class="s2">&quot;First Move&quot;</span><span class="p">,</span> <span class="s2">&quot;Second Move&quot;</span><span class="p">,</span> <span class="s2">&quot;Who Moved&quot;</span><span class="p">,</span> <span class="s2">&quot;Tactic&quot;</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">tactic_url_array</span><span class="p">:</span>
+            <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">fen_scrape</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">t_type</span><span class="p">))</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c1"># Here we just test getting the fens from the urls and writing to a csv</span>
+    <span class="c1"># FORK_ARR = pd.read_csv(&quot;C:\\Users\\Taylor McCreary\\OneDrive\\Classes\\Data Science\\ChessTacticClassifier\\src\\web_scraping\\example_urls.csv&quot;, header=None)</span>
+    <span class="c1"># FORK_URLS = np.array(FORK_ARR[1])</span>
+    <span class="c1"># write_tactic_csv(&quot;forks.csv&quot;, FORK_URLS, &quot;fork&quot;)</span>
+    <span class="n">test</span> <span class="o">=</span> <span class="n">get_n_tactic_urls</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -11832,30 +11935,23 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Next, we'll load a module we wrote to take care of some of the web scraping details:</p>
+<p>Next, we'll use these functions to extract fork, skewer and trapped piece tactics.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#load ..\..\src\url_utils</span>
-</pre></div>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">FORKFORKSS</span> <span class="o">=</span> <span class="n">get_n_tactic_urls</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">SKEWERS</span> <span class="o">=</span> <span class="n">get_n_tactic_urls</span><span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">TRAPPED</span> <span class="o">=</span> <span class="n">get_n_tactic_urls</span><span class="p">(</span><span class="mi">29</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
 
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lsmagic</span>
+<span class="n">write_tactic_csv</span><span class="p">(</span><span class="s2">&quot;../data/fork.csv&quot;</span><span class="p">,</span> <span class="n">FORKS</span><span class="p">,</span> <span class="s2">&quot;fork&quot;</span><span class="p">)</span>
+<span class="n">write_tactic_csv</span><span class="p">(</span><span class="s2">&quot;../data/skewer.csv&quot;</span><span class="p">,</span> <span class="n">SKEWERS</span><span class="p">,</span> <span class="s2">&quot;skewer&quot;</span><span class="p">)</span>
+<span class="n">write_tactic_csv</span><span class="p">(</span><span class="s2">&quot;../data/trapped.csv&quot;</span><span class="p">,</span> <span class="n">TRAPPED</span><span class="p">,</span> <span class="s2">&quot;trapped&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -11868,19 +11964,60 @@ div#notebook {
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[14]:</div>
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>C:\ProgramData\Anaconda3\lib\site-packages\ipykernel_launcher.py:25: DeprecationWarning: URLopener style of invoking requests is deprecated. Use newer urlopen functions/methods
+C:\ProgramData\Anaconda3\lib\site-packages\ipykernel_launcher.py:67: DeprecationWarning: URLopener style of invoking requests is deprecated. Use newer urlopen functions/methods
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">SKEWERS</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[11]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Available line magics:
-%alias  %alias_magic  %autocall  %automagic  %autosave  %bookmark  %cd  %clear  %cls  %colors  %config  %connect_info  %copy  %ddir  %debug  %dhist  %dirs  %doctest_mode  %echo  %ed  %edit  %env  %gui  %hist  %history  %killbgscripts  %ldir  %less  %load  %load_ext  %loadpy  %logoff  %logon  %logstart  %logstate  %logstop  %ls  %lsmagic  %macro  %magic  %matplotlib  %mkdir  %more  %notebook  %page  %pastebin  %pdb  %pdef  %pdoc  %pfile  %pinfo  %pinfo2  %popd  %pprint  %precision  %profile  %prun  %psearch  %psource  %pushd  %pwd  %pycat  %pylab  %qtconsole  %quickref  %recall  %rehashx  %reload_ext  %ren  %rep  %rerun  %reset  %reset_selective  %rmdir  %run  %save  %sc  %set_env  %store  %sx  %system  %tb  %time  %timeit  %unalias  %unload_ext  %who  %who_ls  %whos  %xdel  %xmode
-
-Available cell magics:
-%%!  %%HTML  %%SVG  %%bash  %%capture  %%cmd  %%debug  %%file  %%html  %%javascript  %%js  %%latex  %%markdown  %%perl  %%prun  %%pypy  %%python  %%python2  %%python3  %%ruby  %%script  %%sh  %%svg  %%sx  %%system  %%time  %%timeit  %%writefile
-
-Automagic is ON, % prefix IS NOT needed for line magics.</pre>
+<pre>[&#39;https://www.chess.com/tactics/28040&#39;,
+ &#39;https://www.chess.com/tactics/30295&#39;,
+ &#39;https://www.chess.com/tactics/34324&#39;,
+ &#39;https://www.chess.com/tactics/34899&#39;,
+ &#39;https://www.chess.com/tactics/36141&#39;,
+ &#39;https://www.chess.com/tactics/43843&#39;,
+ &#39;https://www.chess.com/tactics/45723&#39;,
+ &#39;https://www.chess.com/tactics/45955&#39;,
+ &#39;https://www.chess.com/tactics/47378&#39;,
+ &#39;https://www.chess.com/tactics/48801&#39;,
+ &#39;https://www.chess.com/tactics/52027&#39;,
+ &#39;https://www.chess.com/tactics/53254&#39;,
+ &#39;https://www.chess.com/tactics/57709&#39;,
+ &#39;https://www.chess.com/tactics/65590&#39;,
+ &#39;https://www.chess.com/tactics/71168&#39;,
+ &#39;https://www.chess.com/tactics/71539&#39;]</pre>
 </div>
 
 </div>
