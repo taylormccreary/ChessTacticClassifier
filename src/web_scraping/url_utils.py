@@ -89,6 +89,8 @@ def write_tactic_csv(fname, tactic_url_array, t_type):
 
 if __name__ == "__main__":
     # Here we just test getting the fens from the urls and writing to a csv
-    FORK_ARR = pd.read_csv("C:\\Users\\Taylor McCreary\\OneDrive\\Classes\\Data Science\\ChessTacticClassifier\\src\\web_scraping\\example_urls.csv", header=None)
-    FORK_URLS = np.array(FORK_ARR[0])
-    write_tactic_csv("forks.csv", FORK_URLS, "fork")
+    # FORK_ARR = pd.read_csv("C:\\Users\\Taylor McCreary\\OneDrive\\Classes\\Data Science\\ChessTacticClassifier\\src\\web_scraping\\example_urls.csv", header=None)
+    # FORK_URLS = np.array(FORK_ARR[1])
+    # write_tactic_csv("forks.csv", FORK_URLS, "fork")
+    test = get_n_tactic_urls(11, 10)
+    print(test)
