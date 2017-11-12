@@ -123,7 +123,7 @@ if __name__ == "__main__":
     print(test)
 
 
-# Next, we'll use these functions to extract fork, skewer and trapped piece tactics.
+# Next, we'll use these functions to extract the urls for fork, skewer and trapped piece tactics.
 
 # In[9]:
 
@@ -137,8 +137,42 @@ write_tactic_csv("../data/skewer.csv", SKEWERS, "skewer")
 write_tactic_csv("../data/trapped.csv", TRAPPED, "trapped")
 
 
-# In[11]:
+# In[14]:
 
 
-SKEWERS
+import chess
+
+
+# Now that we have the urls, we can go to each webpage and get the relevant information.
+# 
+# Chess positions are stored in a standardized format called a FEN. We'll need the FEN and the first move from each of the tactics. This information will be compose our "raw data".
+
+# In[13]:
+
+
+def get_full_fen(df_elem):
+    """takes as input a row, returns full fen str"""
+    color = "b"
+    if df_elem[["Who Moved"]][0] == "white":
+        color = "w"
+    return df_elem[["FEN"]] + " " + color + " KQkq - 0 1"
+
+def update_fen(df_elem):
+    """takes as input a row with a full fen, and returns
+    a new fen"""
+    board = chess.Board(df_elem[["FEN"]][0])
+    board.push_san(df_elem[["First Move"]][0])
+    return board.fen()
+
+f_array = pd.read_csv('..\\data\\fork.csv')
+s_array = pd.read_csv('..\\data\\skewer.csv')
+t_array = pd.read_csv('..\\data\\trapped.csv')
+frames = [f_array, s_array, t_array]
+tactics_array = pd.concat(frames)
+tactics_array["FEN"] = tactics_array.apply(get_full_fen, axis=1)
+tactics_array["tactic_fen"] = tactics_array.apply(update_fen, axis=1)
+tactics_array["move"] = tactics_array["Second Move"]
+tactics_array["tactic"] = tactics_array["Tactic"]
+tactics_array[['tactic_fen', 'move', 'tactic']].to_csv(
+    '../data/training_data_unprocessed.csv', index=False)
 

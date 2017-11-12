@@ -11935,7 +11935,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Next, we'll use these functions to extract fork, skewer and trapped piece tactics.</p>
+<p>Next, we'll use these functions to extract the urls for fork, skewer and trapped piece tactics.</p>
 
 </div>
 </div>
@@ -11980,10 +11980,10 @@ C:\ProgramData\Anaconda3\lib\site-packages\ipykernel_launcher.py:67: Deprecation
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">SKEWERS</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">chess</span>
 </pre></div>
 
 </div>
@@ -11996,30 +11996,113 @@ C:\ProgramData\Anaconda3\lib\site-packages\ipykernel_launcher.py:67: Deprecation
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[11]:</div>
+<div class="prompt"></div>
 
 
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-14-31dd7659fda0&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span><span class="ansi-green-intense-fg ansi-bold">import</span> chess
 
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[&#39;https://www.chess.com/tactics/28040&#39;,
- &#39;https://www.chess.com/tactics/30295&#39;,
- &#39;https://www.chess.com/tactics/34324&#39;,
- &#39;https://www.chess.com/tactics/34899&#39;,
- &#39;https://www.chess.com/tactics/36141&#39;,
- &#39;https://www.chess.com/tactics/43843&#39;,
- &#39;https://www.chess.com/tactics/45723&#39;,
- &#39;https://www.chess.com/tactics/45955&#39;,
- &#39;https://www.chess.com/tactics/47378&#39;,
- &#39;https://www.chess.com/tactics/48801&#39;,
- &#39;https://www.chess.com/tactics/52027&#39;,
- &#39;https://www.chess.com/tactics/53254&#39;,
- &#39;https://www.chess.com/tactics/57709&#39;,
- &#39;https://www.chess.com/tactics/65590&#39;,
- &#39;https://www.chess.com/tactics/71168&#39;,
- &#39;https://www.chess.com/tactics/71539&#39;]</pre>
+<span class="ansi-red-intense-fg ansi-bold">ModuleNotFoundError</span>: No module named &#39;chess&#39;</pre>
+</div>
 </div>
 
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now that we have the urls, we can go to each webpage and get the relevant information.</p>
+<p>Chess positions are stored in a standardized format called a FEN. We'll need the FEN and the first move from each of the tactics. This information will be compose our "raw data".</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_full_fen</span><span class="p">(</span><span class="n">df_elem</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;takes as input a row, returns full fen str&quot;&quot;&quot;</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;b&quot;</span>
+    <span class="k">if</span> <span class="n">df_elem</span><span class="p">[[</span><span class="s2">&quot;Who Moved&quot;</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;white&quot;</span><span class="p">:</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;w&quot;</span>
+    <span class="k">return</span> <span class="n">df_elem</span><span class="p">[[</span><span class="s2">&quot;FEN&quot;</span><span class="p">]]</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">color</span> <span class="o">+</span> <span class="s2">&quot; KQkq - 0 1&quot;</span>
+
+<span class="k">def</span> <span class="nf">update_fen</span><span class="p">(</span><span class="n">df_elem</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;takes as input a row with a full fen, and returns</span>
+<span class="sd">    a new fen&quot;&quot;&quot;</span>
+    <span class="n">board</span> <span class="o">=</span> <span class="n">chess</span><span class="o">.</span><span class="n">Board</span><span class="p">(</span><span class="n">df_elem</span><span class="p">[[</span><span class="s2">&quot;FEN&quot;</span><span class="p">]][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">board</span><span class="o">.</span><span class="n">push_san</span><span class="p">(</span><span class="n">df_elem</span><span class="p">[[</span><span class="s2">&quot;First Move&quot;</span><span class="p">]][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">board</span><span class="o">.</span><span class="n">fen</span><span class="p">()</span>
+
+<span class="n">f_array</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;..</span><span class="se">\\</span><span class="s1">data</span><span class="se">\\</span><span class="s1">fork.csv&#39;</span><span class="p">)</span>
+<span class="n">s_array</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;..</span><span class="se">\\</span><span class="s1">data</span><span class="se">\\</span><span class="s1">skewer.csv&#39;</span><span class="p">)</span>
+<span class="n">t_array</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;..</span><span class="se">\\</span><span class="s1">data</span><span class="se">\\</span><span class="s1">trapped.csv&#39;</span><span class="p">)</span>
+<span class="n">frames</span> <span class="o">=</span> <span class="p">[</span><span class="n">f_array</span><span class="p">,</span> <span class="n">s_array</span><span class="p">,</span> <span class="n">t_array</span><span class="p">]</span>
+<span class="n">tactics_array</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">frames</span><span class="p">)</span>
+<span class="n">tactics_array</span><span class="p">[</span><span class="s2">&quot;FEN&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tactics_array</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">get_full_fen</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">tactics_array</span><span class="p">[</span><span class="s2">&quot;tactic_fen&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tactics_array</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">update_fen</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">tactics_array</span><span class="p">[</span><span class="s2">&quot;move&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tactics_array</span><span class="p">[</span><span class="s2">&quot;Second Move&quot;</span><span class="p">]</span>
+<span class="n">tactics_array</span><span class="p">[</span><span class="s2">&quot;tactic&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tactics_array</span><span class="p">[</span><span class="s2">&quot;Tactic&quot;</span><span class="p">]</span>
+<span class="n">tactics_array</span><span class="p">[[</span><span class="s1">&#39;tactic_fen&#39;</span><span class="p">,</span> <span class="s1">&#39;move&#39;</span><span class="p">,</span> <span class="s1">&#39;tactic&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+    <span class="s1">&#39;../data/training_data_unprocessed.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-13-baf2532024ba&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
+<span class="ansi-green-fg">     19</span> tactics_array <span class="ansi-yellow-intense-fg ansi-bold">=</span> pd<span class="ansi-yellow-intense-fg ansi-bold">.</span>concat<span class="ansi-yellow-intense-fg ansi-bold">(</span>frames<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     20</span> tactics_array<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#34;FEN&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span> <span class="ansi-yellow-intense-fg ansi-bold">=</span> tactics_array<span class="ansi-yellow-intense-fg ansi-bold">.</span>apply<span class="ansi-yellow-intense-fg ansi-bold">(</span>get_full_fen<span class="ansi-yellow-intense-fg ansi-bold">,</span> axis<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-cyan-intense-fg ansi-bold">1</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-intense-fg ansi-bold">---&gt; 21</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>tactics_array<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#34;tactic_fen&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span> <span class="ansi-yellow-intense-fg ansi-bold">=</span> tactics_array<span class="ansi-yellow-intense-fg ansi-bold">.</span>apply<span class="ansi-yellow-intense-fg ansi-bold">(</span>update_fen<span class="ansi-yellow-intense-fg ansi-bold">,</span> axis<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-cyan-intense-fg ansi-bold">1</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     22</span> tactics_array<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#34;move&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span> <span class="ansi-yellow-intense-fg ansi-bold">=</span> tactics_array<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#34;Second Move&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span>
+<span class="ansi-green-fg">     23</span> tactics_array<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#34;tactic&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span> <span class="ansi-yellow-intense-fg ansi-bold">=</span> tactics_array<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#34;Tactic&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span>
+
+<span class="ansi-green-intense-fg ansi-bold">C:\ProgramData\Anaconda3\lib\site-packages\pandas\core\frame.py</span> in <span class="ansi-cyan-fg">apply</span><span class="ansi-blue-intense-fg ansi-bold">(self, func, axis, broadcast, raw, reduce, args, **kwds)</span>
+<span class="ansi-green-fg">   4260</span>                         f<span class="ansi-yellow-intense-fg ansi-bold">,</span> axis<span class="ansi-yellow-intense-fg ansi-bold">,</span>
+<span class="ansi-green-fg">   4261</span>                         reduce<span class="ansi-yellow-intense-fg ansi-bold">=</span>reduce<span class="ansi-yellow-intense-fg ansi-bold">,</span>
+<span class="ansi-green-intense-fg ansi-bold">-&gt; 4262</span><span class="ansi-yellow-intense-fg ansi-bold">                         ignore_failures=ignore_failures)
+</span><span class="ansi-green-fg">   4263</span>             <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">   4264</span>                 <span class="ansi-green-intense-fg ansi-bold">return</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_apply_broadcast<span class="ansi-yellow-intense-fg ansi-bold">(</span>f<span class="ansi-yellow-intense-fg ansi-bold">,</span> axis<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+
+<span class="ansi-green-intense-fg ansi-bold">C:\ProgramData\Anaconda3\lib\site-packages\pandas\core\frame.py</span> in <span class="ansi-cyan-fg">_apply_standard</span><span class="ansi-blue-intense-fg ansi-bold">(self, func, axis, ignore_failures, reduce)</span>
+<span class="ansi-green-fg">   4356</span>             <span class="ansi-green-intense-fg ansi-bold">try</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">   4357</span>                 <span class="ansi-green-intense-fg ansi-bold">for</span> i<span class="ansi-yellow-intense-fg ansi-bold">,</span> v <span class="ansi-green-intense-fg ansi-bold">in</span> enumerate<span class="ansi-yellow-intense-fg ansi-bold">(</span>series_gen<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">-&gt; 4358</span><span class="ansi-yellow-intense-fg ansi-bold">                     </span>results<span class="ansi-yellow-intense-fg ansi-bold">[</span>i<span class="ansi-yellow-intense-fg ansi-bold">]</span> <span class="ansi-yellow-intense-fg ansi-bold">=</span> func<span class="ansi-yellow-intense-fg ansi-bold">(</span>v<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">   4359</span>                     keys<span class="ansi-yellow-intense-fg ansi-bold">.</span>append<span class="ansi-yellow-intense-fg ansi-bold">(</span>v<span class="ansi-yellow-intense-fg ansi-bold">.</span>name<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">   4360</span>             <span class="ansi-green-intense-fg ansi-bold">except</span> Exception <span class="ansi-green-intense-fg ansi-bold">as</span> e<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-13-baf2532024ba&gt;</span> in <span class="ansi-cyan-fg">update_fen</span><span class="ansi-blue-intense-fg ansi-bold">(df_elem)</span>
+<span class="ansi-green-fg">      9</span>     &#34;&#34;&#34;takes as input a row with a full fen, and returns
+<span class="ansi-green-fg">     10</span>     a new fen&#34;&#34;&#34;
+<span class="ansi-green-intense-fg ansi-bold">---&gt; 11</span><span class="ansi-yellow-intense-fg ansi-bold">     </span>board <span class="ansi-yellow-intense-fg ansi-bold">=</span> chess<span class="ansi-yellow-intense-fg ansi-bold">.</span>Board<span class="ansi-yellow-intense-fg ansi-bold">(</span>df_elem<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#34;FEN&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     12</span>     board<span class="ansi-yellow-intense-fg ansi-bold">.</span>push_san<span class="ansi-yellow-intense-fg ansi-bold">(</span>df_elem<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#34;First Move&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     13</span>     <span class="ansi-green-intense-fg ansi-bold">return</span> board<span class="ansi-yellow-intense-fg ansi-bold">.</span>fen<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: (&#34;name &#39;chess&#39; is not defined&#34;, &#39;occurred at index 0&#39;)</pre>
+</div>
 </div>
 
 </div>
