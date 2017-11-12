@@ -11817,7 +11817,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ..\src\web_scraping\url_utils.py</span>
@@ -11915,15 +11915,6 @@ div#notebook {
         <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="s2">&quot;FEN&quot;</span><span class="p">,</span> <span class="s2">&quot;First Move&quot;</span><span class="p">,</span> <span class="s2">&quot;Second Move&quot;</span><span class="p">,</span> <span class="s2">&quot;Who Moved&quot;</span><span class="p">,</span> <span class="s2">&quot;Tactic&quot;</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">tactic_url_array</span><span class="p">:</span>
             <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">fen_scrape</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">t_type</span><span class="p">))</span>
-
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="c1"># Here we just test getting the fens from the urls and writing to a csv</span>
-    <span class="c1"># FORK_ARR = pd.read_csv(&quot;C:\\Users\\Taylor McCreary\\OneDrive\\Classes\\Data Science\\ChessTacticClassifier\\src\\web_scraping\\example_urls.csv&quot;, header=None)</span>
-    <span class="c1"># FORK_URLS = np.array(FORK_ARR[1])</span>
-    <span class="c1"># write_tactic_csv(&quot;forks.csv&quot;, FORK_URLS, &quot;fork&quot;)</span>
-    <span class="n">test</span> <span class="o">=</span> <span class="n">get_n_tactic_urls</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -11942,74 +11933,19 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">FORKFORKSS</span> <span class="o">=</span> <span class="n">get_n_tactic_urls</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
-<span class="n">SKEWERS</span> <span class="o">=</span> <span class="n">get_n_tactic_urls</span><span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
-<span class="n">TRAPPED</span> <span class="o">=</span> <span class="n">get_n_tactic_urls</span><span class="p">(</span><span class="mi">29</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># FORKS = get_n_tactic_urls(11, 15)</span>
+<span class="c1"># SKEWERS = get_n_tactic_urls(26, 15)</span>
+<span class="c1"># TRAPPED = get_n_tactic_urls(29, 15)</span>
 
-<span class="n">write_tactic_csv</span><span class="p">(</span><span class="s2">&quot;../data/fork.csv&quot;</span><span class="p">,</span> <span class="n">FORKS</span><span class="p">,</span> <span class="s2">&quot;fork&quot;</span><span class="p">)</span>
-<span class="n">write_tactic_csv</span><span class="p">(</span><span class="s2">&quot;../data/skewer.csv&quot;</span><span class="p">,</span> <span class="n">SKEWERS</span><span class="p">,</span> <span class="s2">&quot;skewer&quot;</span><span class="p">)</span>
-<span class="n">write_tactic_csv</span><span class="p">(</span><span class="s2">&quot;../data/trapped.csv&quot;</span><span class="p">,</span> <span class="n">TRAPPED</span><span class="p">,</span> <span class="s2">&quot;trapped&quot;</span><span class="p">)</span>
+<span class="c1"># write_tactic_csv(&quot;../data/fork.csv&quot;, FORKS, &quot;fork&quot;)</span>
+<span class="c1"># write_tactic_csv(&quot;../data/skewer.csv&quot;, SKEWERS, &quot;skewer&quot;)</span>
+<span class="c1"># write_tactic_csv(&quot;../data/trapped.csv&quot;, TRAPPED, &quot;trapped&quot;)</span>
 </pre></div>
 
 </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>C:\ProgramData\Anaconda3\lib\site-packages\ipykernel_launcher.py:25: DeprecationWarning: URLopener style of invoking requests is deprecated. Use newer urlopen functions/methods
-C:\ProgramData\Anaconda3\lib\site-packages\ipykernel_launcher.py:67: DeprecationWarning: URLopener style of invoking requests is deprecated. Use newer urlopen functions/methods
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">chess</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">ModuleNotFoundError</span>                       Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-14-31dd7659fda0&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
-<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span><span class="ansi-green-intense-fg ansi-bold">import</span> chess
-
-<span class="ansi-red-intense-fg ansi-bold">ModuleNotFoundError</span>: No module named &#39;chess&#39;</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -12026,10 +11962,11 @@ C:\ProgramData\Anaconda3\lib\site-packages\ipykernel_launcher.py:67: Deprecation
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_full_fen</span><span class="p">(</span><span class="n">df_elem</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">chess</span>
+<span class="k">def</span> <span class="nf">get_full_fen</span><span class="p">(</span><span class="n">df_elem</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;takes as input a row, returns full fen str&quot;&quot;&quot;</span>
     <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;b&quot;</span>
     <span class="k">if</span> <span class="n">df_elem</span><span class="p">[[</span><span class="s2">&quot;Who Moved&quot;</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;white&quot;</span><span class="p">:</span>
@@ -12060,54 +11997,288 @@ C:\ProgramData\Anaconda3\lib\site-packages\ipykernel_launcher.py:67: Deprecation
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>At this point, we finally have our raw data in the file training_data_unprocessed.csv.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Feature-engineering">Feature engineering<a class="anchor-link" href="#Feature-engineering">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>On their own, the FEN string and the move for the tactic are not very easy to train on. We need to extract features from these variables to create real training data. Fortunately, the chess module provides many useful functions that we can utilize to extract useful features.</p>
+<p>The features we want to look at include:</p>
+<ul>
+<li>number of attacked pawns</li>
+<li>number of attacked knights</li>
+<li>number of attacked bishops</li>
+<li>number of attacked rooks</li>
+<li>number of attacked queens</li>
+<li>total value of attacked pieces<ul>
+<li>in chess, each piece is typically thought of as having a 'value':<ul>
+<li>pawn: 1</li>
+<li>knight: 3</li>
+<li>bishop: 3</li>
+<li>rook: 5</li>
+<li>queen: 9</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ..\src\process_raw_training_data.py</span>
+<span class="sd">&quot;&quot;&quot;Uses the data in the csv of fens, moves and tactics</span>
+<span class="sd">to create features that we use to train on&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">chess</span>
+
+<span class="k">def</span> <span class="nf">get_attacked_squares</span><span class="p">(</span><span class="n">df_elem</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;from a python-chess board and move, get the squares that are attacked</span>
+<span class="sd">    by the piece that moves&quot;&quot;&quot;</span>
+    <span class="n">board</span> <span class="o">=</span> <span class="n">chess</span><span class="o">.</span><span class="n">Board</span><span class="p">(</span><span class="n">df_elem</span><span class="p">[[</span><span class="s2">&quot;tactic_fen&quot;</span><span class="p">]][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">board</span><span class="o">.</span><span class="n">push_san</span><span class="p">(</span><span class="n">df_elem</span><span class="p">[[</span><span class="s2">&quot;move&quot;</span><span class="p">]][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">move</span> <span class="o">=</span> <span class="n">board</span><span class="o">.</span><span class="n">peek</span><span class="p">()</span>
+    <span class="n">squares</span> <span class="o">=</span> <span class="n">board</span><span class="o">.</span><span class="n">attacks</span><span class="p">(</span><span class="n">move</span><span class="o">.</span><span class="n">to_square</span><span class="p">)</span>
+    <span class="c1">#print(list(squares))</span>
+    <span class="k">return</span> <span class="n">squares</span>
+
+<span class="k">def</span> <span class="nf">num_piece_attacked</span><span class="p">(</span><span class="n">df_elem</span><span class="p">,</span> <span class="n">piece_id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;from a python-chess board and move, get the # pieces attacked</span>
+<span class="sd">    by the piece that moves.\n</span>
+<span class="sd">    1 - pawn\n</span>
+<span class="sd">    2 - knight\n</span>
+<span class="sd">    3 - bishop\n</span>
+<span class="sd">    4 - rook\n</span>
+<span class="sd">    5 - queen\n</span>
+<span class="sd">    6 - king&quot;&quot;&quot;</span>
+    <span class="n">squares</span> <span class="o">=</span> <span class="n">get_attacked_squares</span><span class="p">(</span><span class="n">df_elem</span><span class="p">)</span>
+    <span class="n">board</span> <span class="o">=</span> <span class="n">chess</span><span class="o">.</span><span class="n">Board</span><span class="p">(</span><span class="n">df_elem</span><span class="p">[[</span><span class="s2">&quot;tactic_fen&quot;</span><span class="p">]][</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">sqr</span> <span class="ow">in</span> <span class="n">squares</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">board</span><span class="o">.</span><span class="n">piece_type_at</span><span class="p">(</span><span class="n">sqr</span><span class="p">)</span> <span class="o">==</span> <span class="n">piece_id</span><span class="p">:</span>
+            <span class="n">total</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">total</span>
+
+<span class="k">def</span> <span class="nf">get_attacked_value</span><span class="p">(</span><span class="n">df_elem</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;get the total value of all the attacked pieces&quot;&quot;&quot;</span>
+    <span class="n">total_value</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">total_value</span> <span class="o">+=</span> <span class="n">num_piece_attacked</span><span class="p">(</span><span class="n">df_elem</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># pawn</span>
+    <span class="n">total_value</span> <span class="o">+=</span> <span class="n">num_piece_attacked</span><span class="p">(</span><span class="n">df_elem</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span> <span class="c1"># knight</span>
+    <span class="n">total_value</span> <span class="o">+=</span> <span class="n">num_piece_attacked</span><span class="p">(</span><span class="n">df_elem</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span> <span class="c1"># bishop</span>
+    <span class="n">total_value</span> <span class="o">+=</span> <span class="n">num_piece_attacked</span><span class="p">(</span><span class="n">df_elem</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span> <span class="c1"># rook</span>
+    <span class="n">total_value</span> <span class="o">+=</span> <span class="n">num_piece_attacked</span><span class="p">(</span><span class="n">df_elem</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">*</span> <span class="mi">9</span> <span class="c1"># queen</span>
+    <span class="k">return</span> <span class="n">total_value</span>
+
+<span class="k">def</span> <span class="nf">get_is_check</span><span class="p">(</span><span class="n">fen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;uses the chess module to determine if a fen represents a position in check&quot;&quot;&quot;</span>
+    <span class="n">board</span> <span class="o">=</span> <span class="n">chess</span><span class="o">.</span><span class="n">Board</span><span class="p">(</span><span class="n">fen</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">board</span><span class="o">.</span><span class="n">is_check</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">is_tactic_check</span><span class="p">(</span><span class="n">df_elem</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;with the row of the df, determines if the move is a check&quot;&quot;&quot;</span>
+    <span class="n">board</span> <span class="o">=</span> <span class="n">chess</span><span class="o">.</span><span class="n">Board</span><span class="p">(</span><span class="n">df_elem</span><span class="p">[[</span><span class="s2">&quot;tactic_fen&quot;</span><span class="p">]][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">board</span><span class="o">.</span><span class="n">push_san</span><span class="p">(</span><span class="n">df_elem</span><span class="p">[[</span><span class="s2">&quot;move&quot;</span><span class="p">]][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">board</span><span class="o">.</span><span class="n">is_check</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">df_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;..</span><span class="se">\\</span><span class="s1">data</span><span class="se">\\</span><span class="s1">training_data_unprocessed.csv&#39;</span><span class="p">)</span>
+    <span class="n">df_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+    <span class="c1"># This might be useful info, but it&#39;s not really in a good format for a decision tree</span>
+    <span class="c1"># or some such model right now, it creates lists of varying lengths</span>
+    <span class="c1"># df_features[&quot;squares_attacked&quot;] = df_data.apply(get_attacked_squares, axis=1)</span>
+    <span class="n">df_features</span><span class="p">[</span><span class="s2">&quot;pawns_attacked&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">num_piece_attacked</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,))</span>
+    <span class="n">df_features</span><span class="p">[</span><span class="s2">&quot;knights_attacked&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">num_piece_attacked</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,))</span>
+    <span class="n">df_features</span><span class="p">[</span><span class="s2">&quot;bishops_attacked&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">num_piece_attacked</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,))</span>
+    <span class="n">df_features</span><span class="p">[</span><span class="s2">&quot;rooks_attacked&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">num_piece_attacked</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,))</span>
+    <span class="n">df_features</span><span class="p">[</span><span class="s2">&quot;queens_attacked&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">num_piece_attacked</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,))</span>
+    <span class="n">df_features</span><span class="p">[</span><span class="s2">&quot;value_attacked&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">get_attacked_value</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">df_features</span><span class="p">[</span><span class="s2">&quot;tactic&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_data</span><span class="p">[</span><span class="s2">&quot;tactic&quot;</span><span class="p">]</span>
+    <span class="c1"># # Here are two examples of creating features to be part of df_features</span>
+    <span class="c1"># # if the feature is built using only one variable, use map()</span>
+    <span class="c1"># # if you need the whole row, use apply()</span>
+    <span class="c1"># df_features[&quot;wasInCheck&quot;] = df_data[&quot;tactic_fen&quot;].map(get_is_check)</span>
+    <span class="c1"># df_features[&quot;inCheck&quot;] = df_data.apply(is_tactic_check, axis=1)</span>
+
+    
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Using these functions, we can start to create the features we're looking for.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;..</span><span class="se">\\</span><span class="s1">data</span><span class="se">\\</span><span class="s1">training_data_unprocessed.csv&#39;</span><span class="p">)</span>
+<span class="n">df_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+<span class="n">df_features</span><span class="p">[</span><span class="s2">&quot;pawns_attacked&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">num_piece_attacked</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,))</span>
+<span class="n">df_features</span><span class="p">[</span><span class="s2">&quot;knights_attacked&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">num_piece_attacked</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,))</span>
+<span class="n">df_features</span><span class="p">[</span><span class="s2">&quot;bishops_attacked&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">num_piece_attacked</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,))</span>
+<span class="n">df_features</span><span class="p">[</span><span class="s2">&quot;rooks_attacked&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">num_piece_attacked</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,))</span>
+<span class="n">df_features</span><span class="p">[</span><span class="s2">&quot;queens_attacked&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">num_piece_attacked</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,))</span>
+<span class="n">df_features</span><span class="p">[</span><span class="s2">&quot;value_attacked&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">get_attacked_value</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">df_features</span><span class="p">[</span><span class="s2">&quot;tactic&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_data</span><span class="p">[</span><span class="s2">&quot;tactic&quot;</span><span class="p">]</span>
+<span class="n">df_features</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
 
 <div class="output_area">
 
-<div class="prompt"></div>
+<div class="prompt output_prompt">Out[24]:</div>
 
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-13-baf2532024ba&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
-<span class="ansi-green-fg">     19</span> tactics_array <span class="ansi-yellow-intense-fg ansi-bold">=</span> pd<span class="ansi-yellow-intense-fg ansi-bold">.</span>concat<span class="ansi-yellow-intense-fg ansi-bold">(</span>frames<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     20</span> tactics_array<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#34;FEN&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span> <span class="ansi-yellow-intense-fg ansi-bold">=</span> tactics_array<span class="ansi-yellow-intense-fg ansi-bold">.</span>apply<span class="ansi-yellow-intense-fg ansi-bold">(</span>get_full_fen<span class="ansi-yellow-intense-fg ansi-bold">,</span> axis<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-cyan-intense-fg ansi-bold">1</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 21</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>tactics_array<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#34;tactic_fen&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span> <span class="ansi-yellow-intense-fg ansi-bold">=</span> tactics_array<span class="ansi-yellow-intense-fg ansi-bold">.</span>apply<span class="ansi-yellow-intense-fg ansi-bold">(</span>update_fen<span class="ansi-yellow-intense-fg ansi-bold">,</span> axis<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-cyan-intense-fg ansi-bold">1</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     22</span> tactics_array<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#34;move&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span> <span class="ansi-yellow-intense-fg ansi-bold">=</span> tactics_array<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#34;Second Move&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span>
-<span class="ansi-green-fg">     23</span> tactics_array<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#34;tactic&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span> <span class="ansi-yellow-intense-fg ansi-bold">=</span> tactics_array<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#34;Tactic&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span>
 
-<span class="ansi-green-intense-fg ansi-bold">C:\ProgramData\Anaconda3\lib\site-packages\pandas\core\frame.py</span> in <span class="ansi-cyan-fg">apply</span><span class="ansi-blue-intense-fg ansi-bold">(self, func, axis, broadcast, raw, reduce, args, **kwds)</span>
-<span class="ansi-green-fg">   4260</span>                         f<span class="ansi-yellow-intense-fg ansi-bold">,</span> axis<span class="ansi-yellow-intense-fg ansi-bold">,</span>
-<span class="ansi-green-fg">   4261</span>                         reduce<span class="ansi-yellow-intense-fg ansi-bold">=</span>reduce<span class="ansi-yellow-intense-fg ansi-bold">,</span>
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 4262</span><span class="ansi-yellow-intense-fg ansi-bold">                         ignore_failures=ignore_failures)
-</span><span class="ansi-green-fg">   4263</span>             <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">   4264</span>                 <span class="ansi-green-intense-fg ansi-bold">return</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_apply_broadcast<span class="ansi-yellow-intense-fg ansi-bold">(</span>f<span class="ansi-yellow-intense-fg ansi-bold">,</span> axis<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
 
-<span class="ansi-green-intense-fg ansi-bold">C:\ProgramData\Anaconda3\lib\site-packages\pandas\core\frame.py</span> in <span class="ansi-cyan-fg">_apply_standard</span><span class="ansi-blue-intense-fg ansi-bold">(self, func, axis, ignore_failures, reduce)</span>
-<span class="ansi-green-fg">   4356</span>             <span class="ansi-green-intense-fg ansi-bold">try</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">   4357</span>                 <span class="ansi-green-intense-fg ansi-bold">for</span> i<span class="ansi-yellow-intense-fg ansi-bold">,</span> v <span class="ansi-green-intense-fg ansi-bold">in</span> enumerate<span class="ansi-yellow-intense-fg ansi-bold">(</span>series_gen<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 4358</span><span class="ansi-yellow-intense-fg ansi-bold">                     </span>results<span class="ansi-yellow-intense-fg ansi-bold">[</span>i<span class="ansi-yellow-intense-fg ansi-bold">]</span> <span class="ansi-yellow-intense-fg ansi-bold">=</span> func<span class="ansi-yellow-intense-fg ansi-bold">(</span>v<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   4359</span>                     keys<span class="ansi-yellow-intense-fg ansi-bold">.</span>append<span class="ansi-yellow-intense-fg ansi-bold">(</span>v<span class="ansi-yellow-intense-fg ansi-bold">.</span>name<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   4360</span>             <span class="ansi-green-intense-fg ansi-bold">except</span> Exception <span class="ansi-green-intense-fg ansi-bold">as</span> e<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+    .dataframe thead th {
+        text-align: left;
+    }
 
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-13-baf2532024ba&gt;</span> in <span class="ansi-cyan-fg">update_fen</span><span class="ansi-blue-intense-fg ansi-bold">(df_elem)</span>
-<span class="ansi-green-fg">      9</span>     &#34;&#34;&#34;takes as input a row with a full fen, and returns
-<span class="ansi-green-fg">     10</span>     a new fen&#34;&#34;&#34;
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 11</span><span class="ansi-yellow-intense-fg ansi-bold">     </span>board <span class="ansi-yellow-intense-fg ansi-bold">=</span> chess<span class="ansi-yellow-intense-fg ansi-bold">.</span>Board<span class="ansi-yellow-intense-fg ansi-bold">(</span>df_elem<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#34;FEN&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     12</span>     board<span class="ansi-yellow-intense-fg ansi-bold">.</span>push_san<span class="ansi-yellow-intense-fg ansi-bold">(</span>df_elem<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#34;First Move&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     13</span>     <span class="ansi-green-intense-fg ansi-bold">return</span> board<span class="ansi-yellow-intense-fg ansi-bold">.</span>fen<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-red-intense-fg ansi-bold">NameError</span>: (&#34;name &#39;chess&#39; is not defined&#34;, &#39;occurred at index 0&#39;)</pre>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pawns_attacked</th>
+      <th>knights_attacked</th>
+      <th>bishops_attacked</th>
+      <th>rooks_attacked</th>
+      <th>queens_attacked</th>
+      <th>value_attacked</th>
+      <th>tactic</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>19</td>
+      <td>fork</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>6</td>
+      <td>fork</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>12</td>
+      <td>fork</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>11</td>
+      <td>fork</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>6</td>
+      <td>fork</td>
+    </tr>
+  </tbody>
+</table>
 </div>
 </div>
 
 </div>
+
+</div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Decision-tree-model">Decision tree model<a class="anchor-link" href="#Decision-tree-model">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Cross-Validation">Cross Validation<a class="anchor-link" href="#Cross-Validation">&#182;</a></h2>
+</div>
+</div>
 </div>
     </div>
   </div>
