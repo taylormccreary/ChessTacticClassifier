@@ -8,13 +8,20 @@ from bs4 import BeautifulSoup
 def open_as_firefox(url):
     """adds headers when using urllib.request.URLopener to avoid 403 error. Code from:
     https://stackoverflow.com/questions/22877619/python3-urllib-error-httperror-http-error-403-forbidden"""
-    u_obj = urllib.request.URLopener() # Python 3: urllib.request.URLOpener
+    #u_obj = urllib.request.URLopener() # Python 3: urllib.request.URLOpener
+    u_obj = urllib.request.Request(url)
     u_obj.addheaders = []
-    u_obj.addheader('User-Agent', 'Mozilla/5.0')
-    u_obj.addheader('Accept-Language', 'de-DE,de;q=0.9,en;q=0.8')
-    u_obj.addheader('Accept', 'text/html, application/xml;q=0.9, application/xhtml+xml, image/png,\
+    # u_obj.addheader('User-Agent', 'Mozilla/5.0')
+    # u_obj.addheader('Accept-Language', 'de-DE,de;q=0.9,en;q=0.8')
+    # u_obj.addheader('Accept', 'text/html, application/xml;q=0.9, application/xhtml+xml, image/png,\
+    # image/webp, image/jpeg, image/gif, image/x-xbitmap, */*;q=0.1')
+    
+    u_obj.add_header('User-Agent', 'Mozilla/5.0')
+    u_obj.add_header('Accept-Language', 'de-DE,de;q=0.9,en;q=0.8')
+    u_obj.add_header('Accept', 'text/html, application/xml;q=0.9, application/xhtml+xml, image/png,\
     image/webp, image/jpeg, image/gif, image/x-xbitmap, */*;q=0.1')
-    file_from_url = u_obj.open(url)
+    #file_from_url = u_obj.open(url)
+    file_from_url = urllib.request.urlopen(u_obj)
     res = file_from_url.read()
     file_from_url.close()
     return res
