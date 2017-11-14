@@ -101,8 +101,8 @@ if __name__ == "__main__":
     Y = df_features.tactic.values
     clf = tree.DecisionTreeClassifier()
     clf = clf.fit(X, Y)
-    # dot_data = tree.export_graphviz(clf, out_file=None)
-    # graph = graphviz.Source(dot_data)
-    # graph.render("picture")
+    dot_data = tree.export_graphviz(clf, out_file=None)
+    graph = graphviz.Source(dot_data)
+    graph.render("picture")
 # print(df_features)
     
