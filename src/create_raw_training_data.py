@@ -21,9 +21,12 @@ def update_fen(df_elem):
 
 
 if __name__ == "__main__":
-    f_array = pd.read_csv('..\\data\\fork.csv')
-    s_array = pd.read_csv('..\\data\\skewer.csv')
-    t_array = pd.read_csv('..\\data\\trapped.csv')
+    #f_array = pd.read_csv('..\\data\\fork.csv') Windows version
+    #s_array = pd.read_csv('..\\data\\skewer.csv')
+    #t_array = pd.read_csv('..\\data\\trapped.csv')
+    f_array = pd.read_csv('../data/fork.csv')   #Mac Version
+    s_array = pd.read_csv('../data/skewer.csv')
+    t_array = pd.read_csv('../data/trapped.csv')
     frames = [f_array, s_array, t_array]
     tactics_array = pd.concat(frames)
     tactics_array["FEN"] = tactics_array.apply(get_full_fen, axis=1)

@@ -71,7 +71,8 @@ def check_piece_taken_on_move(move):
         return False
 
 if __name__ == "__main__":
-    df_data = pd.read_csv('..\\data\\training_data_unprocessed.csv')
+    #df_data = pd.read_csv('..\\data\\training_data_unprocessed.csv') Windows version
+    df_data = pd.read_csv('../data/training_data_unprocessed.csv')   #Mac version
     df_features = pd.DataFrame()
 
     # This might be useful info, but it's not really in a good format for a decision tree

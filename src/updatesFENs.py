@@ -2,13 +2,15 @@
 and 'plays' the first move, updating the FEN"""
 import chess
 
-fenDocument = open('..\\data\\fork.csv','r')
-writeToDocument = open('..\\data\\updatedFENs.csv', 'r+')
+#fenDocument = open('..\\data\\fork.csv','r') Windows version
+#writeToDocument = open('..\\data\\updatedFENs.csv', 'r+')
+fenDocument = open('../data/fork.csv','r')   #Mac version
+writeToDocument = open('../data/updatedFENs.csv', 'r+')
 i = 0
 for line in fenDocument.read().split('\n'):
     if i != 0:  
         # read one line of fen document
-        # read moves, seperate them into two positions
+        # read moves, separate them into two positions
         # create board from position of first fen
         # input first move
         # output fen after first move and write it to updatedFENs
