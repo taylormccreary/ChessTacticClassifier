@@ -2,6 +2,8 @@
 to create features that we use to train on"""
 import pandas as pd
 import chess
+from sklearn import tree
+import graphviz
 
 def get_attacked_squares(df_elem):
     """from a python-chess board and move, get the squares that are attacked
@@ -52,6 +54,22 @@ def is_tactic_check(df_elem):
     board.push_san(df_elem[["move"]][0])
     return board.is_check()
 
+def get_number_pieces(fen):
+    """returns number of pieces on the board"""
+    output = 0
+    temp = fen.split(' ')
+    for c in temp[0]:
+        if c.isalpha():
+            output += 1
+    return output
+
+def check_piece_taken_on_move(move):
+    """check if move captured a piece"""
+    if "x" in move:
+        return True
+    else:
+        return False
+
 if __name__ == "__main__":
     df_data = pd.read_csv('..\\data\\training_data_unprocessed.csv')
     df_features = pd.DataFrame()
@@ -65,6 +83,9 @@ if __name__ == "__main__":
     df_features["rooks_attacked"] = df_data.apply(num_piece_attacked, axis=1, args=(4,))
     df_features["queens_attacked"] = df_data.apply(num_piece_attacked, axis=1, args=(5,))
     df_features["value_attacked"] = df_data.apply(get_attacked_value, axis=1)
+    # df_features["was_piece_taken"] = df_data["first_move"].map(check_piece_taken_on_move)
+    df_features["piece_to_be_taken"] = df_data["move"].map(check_piece_taken_on_move)
+    df_features["pieces_on_board"] = df_data["tactic_fen"].map(get_number_pieces)
 
     df_features["tactic"] = df_data["tactic"]
     # # Here are two examples of creating features to be part of df_features
@@ -74,7 +95,13 @@ if __name__ == "__main__":
     # df_features["inCheck"] = df_data.apply(is_tactic_check, axis=1)
 
 
-
-
-print(df_features)
+    features = list(df_features.columns[:8])
+    X = df_features[features]
+    Y = df_features.tactic.values
+    clf = tree.DecisionTreeClassifier()
+    clf = clf.fit(X, Y)
+    # dot_data = tree.export_graphviz(clf, out_file=None)
+    # graph = graphviz.Source(dot_data)
+    # graph.render("picture")
+# print(df_features)
     
