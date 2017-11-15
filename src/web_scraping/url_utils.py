@@ -1,8 +1,6 @@
 """python module for web scraping chess tactics with beautifulsoup"""
 import csv
 import urllib.request
-import pandas as pd
-import numpy as np
 from bs4 import BeautifulSoup
 
 def open_as_firefox(url):
@@ -86,7 +84,7 @@ def fen_scrape(url, t_type):
 
 def write_tactic_csv(fname, tactic_url_array, t_type):
     """takes as input name of file and the array of tactic urls
-    and writes line by line to a .csv"""
+    and writes fens from url line by line to a .csv"""
     with open(fname, 'w', newline='') as csvfile:
         csv_writer = csv.writer(csvfile)
         csv_writer.writerow(["FEN", "First Move", "Second Move", "Who Moved", "Tactic"])
@@ -96,8 +94,10 @@ def write_tactic_csv(fname, tactic_url_array, t_type):
 
 if __name__ == "__main__":
     # Here we just test getting the fens from the urls and writing to a csv
-    # FORK_ARR = pd.read_csv("C:\\Users\\Taylor McCreary\\OneDrive\\Classes\\Data Science\\ChessTacticClassifier\\src\\web_scraping\\example_urls.csv", header=None)
-    # FORK_URLS = np.array(FORK_ARR[1])
-    # write_tactic_csv("forks.csv", FORK_URLS, "fork")
-    test = get_n_tactic_urls(11, 10)
-    print(test)
+    FORKS = get_n_tactic_urls(11, 15)
+    SKEWERS = get_n_tactic_urls(26, 15)
+    TRAPPED = get_n_tactic_urls(29, 15)
+
+    write_tactic_csv("../../data/fork.csv", FORKS, "fork")
+    write_tactic_csv("../../data/skewer.csv", SKEWERS, "skewer")
+    write_tactic_csv("../../data/trapped.csv", TRAPPED, "trapped")
