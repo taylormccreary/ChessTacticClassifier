@@ -2,24 +2,9 @@
 and cleans it, outputting it into a csv file of training data.
 This data can then be used to create features."""
 import pandas as pd
-import chess
-import web_scraping.url_utils as url
-import create_features as feat
+import modules.url_utils as url
+import modules.create_features as feat
 
-
-def get_full_fen(df_elem):
-    """takes as input a row, returns full fen str"""
-    color = "b"
-    if df_elem[["Who Moved"]][0] == "white":
-        color = "w"
-    return df_elem[["FEN"]] + " " + color + " KQkq - 0 1"
-
-def update_fen(df_elem):
-    """takes as input a row with a full fen, and returns
-    a new fen"""
-    board = chess.Board(df_elem[["FEN"]][0])
-    board.push_san(df_elem[["First Move"]][0])
-    return board.fen()
 
 
 if __name__ == "__main__":
@@ -62,8 +47,8 @@ if __name__ == "__main__":
 
     # Step 3:
     # Update FENs to represent the position after the first move
-    FEN_DF["FEN"] = FEN_DF.apply(get_full_fen, axis=1)
-    FEN_DF["tactic_fen"] = FEN_DF.apply(update_fen, axis=1)
+    FEN_DF["FEN"] = FEN_DF.apply(feat.get_full_fen, axis=1)
+    FEN_DF["tactic_fen"] = FEN_DF.apply(feat.update_fen, axis=1)
     FEN_DF["move"] = FEN_DF["Second Move"]
     FEN_DF = FEN_DF[['tactic_fen', 'move', 'Tactic']]
 

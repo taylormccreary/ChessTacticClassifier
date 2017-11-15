@@ -20,6 +20,7 @@ pawns_attacked,knights_attacked,bishops_attacked,rooks_attacked,queens_attacked,
 0,1,0,1,0,False,20,fork
 1,1,1,0,1,False,32,fork
 0,1,0,1,0,False,15,skewer
+1,0,1,0,1,False,25,skewer
 1,0,0,1,2,False,17,skewer
 1,1,1,0,1,False,27,skewer
 2,0,0,1,0,False,15,skewer

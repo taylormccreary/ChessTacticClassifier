@@ -5,6 +5,21 @@ import chess
 from sklearn import tree
 import graphviz
 
+
+def get_full_fen(df_elem):
+    """takes as input a row, returns full fen str"""
+    color = "b"
+    if df_elem[["Who Moved"]][0] == "white":
+        color = "w"
+    return df_elem[["FEN"]] + " " + color + " KQkq - 0 1"
+
+def update_fen(df_elem):
+    """takes as input a row with a full fen, and returns
+    a new fen"""
+    board = chess.Board(df_elem[["FEN"]][0])
+    board.push_san(df_elem[["First Move"]][0])
+    return board.fen()
+
 def get_attacked_squares(df_elem):
     """from a python-chess board and move, get the squares that are attacked
     by the piece that moves"""
