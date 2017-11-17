@@ -29,6 +29,14 @@ def get_attacked_squares(df_elem):
     squares = board.attacks(move.to_square)
     return squares
 
+def get_move_square(df_elem):
+    """from a python-chess board and str move, get the destination square of
+    the move"""
+    board = chess.Board(df_elem[["tactic_fen"]][0])
+    board.push_san(df_elem[["move"]][0])
+    move = board.peek()
+    return move.to_square
+
 def num_piece_attacked(df_elem, piece_id):
     """from a python-chess board and move, get the # pieces attacked
     by the piece that moves.\n
@@ -57,11 +65,19 @@ def get_attacked_value(df_elem):
     total_value += num_piece_attacked(df_elem, 5) * 9 # queen
     return total_value
 
-# def is_tactic_check(df_elem):
-#     """with the row of the df, determines if the move is a check"""
-#     board = chess.Board(df_elem[["tactic_fen"]][0])
-#     board.push_san(df_elem[["move"]][0])
-#     return board.is_check()
+def get_piece_value(move):
+    """get value of the piece that moves"""
+    if "Q" in move:
+        return 9
+    elif "R" in move:
+        return 5
+    elif "B" in move:
+        return 3
+    elif "N" in move:
+        return 3
+    else:
+        return 1
+
 
 def get_number_pieces(fen):
     """returns number of pieces on the board"""
@@ -101,7 +117,7 @@ if __name__ == "__main__":
     df_features["queens_attacked"] = df_data.apply(num_piece_attacked, axis=1, args=(5,))
     df_features["value_attacked"] = df_data.apply(get_attacked_value, axis=1)
     # df_features["was_piece_taken"] = df_data["first_move"].map(check_piece_taken_on_move)
-    df_features["piece_to_be_taken"] = df_data["move"].map(check_piece_taken_on_move)
+    df_features["piece_to_be_taken"] = df_data["move"].map(is_capture)
     df_features["pieces_on_board"] = df_data["tactic_fen"].map(get_number_pieces)
 
     df_features["tactic"] = df_data["tactic"]
