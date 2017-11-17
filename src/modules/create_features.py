@@ -65,11 +65,19 @@ def get_attacked_value(df_elem):
     total_value += num_piece_attacked(df_elem, 5) * 9 # queen
     return total_value
 
-# def is_tactic_check(df_elem):
-#     """with the row of the df, determines if the move is a check"""
-#     board = chess.Board(df_elem[["tactic_fen"]][0])
-#     board.push_san(df_elem[["move"]][0])
-#     return board.is_check()
+def get_piece_value(move):
+    """get value of the piece that moves"""
+    if "Q" in move:
+        return 9
+    elif "R" in move:
+        return 5
+    elif "B" in move:
+        return 3
+    elif "N" in move:
+        return 3
+    else:
+        return 1
+
 
 def get_number_pieces(fen):
     """returns number of pieces on the board"""
