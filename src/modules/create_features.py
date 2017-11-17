@@ -27,7 +27,6 @@ def get_attacked_squares(df_elem):
     board.push_san(df_elem[["move"]][0])
     move = board.peek()
     squares = board.attacks(move.to_square)
-    #print(list(squares))
     return squares
 
 def num_piece_attacked(df_elem, piece_id):
@@ -58,16 +57,11 @@ def get_attacked_value(df_elem):
     total_value += num_piece_attacked(df_elem, 5) * 9 # queen
     return total_value
 
-def get_is_check(fen):
-    """uses the chess module to determine if a fen represents a position in check"""
-    board = chess.Board(fen)
-    return board.is_check()
-
-def is_tactic_check(df_elem):
-    """with the row of the df, determines if the move is a check"""
-    board = chess.Board(df_elem[["tactic_fen"]][0])
-    board.push_san(df_elem[["move"]][0])
-    return board.is_check()
+# def is_tactic_check(df_elem):
+#     """with the row of the df, determines if the move is a check"""
+#     board = chess.Board(df_elem[["tactic_fen"]][0])
+#     board.push_san(df_elem[["move"]][0])
+#     return board.is_check()
 
 def get_number_pieces(fen):
     """returns number of pieces on the board"""
@@ -78,7 +72,14 @@ def get_number_pieces(fen):
             output += 1
     return output
 
-def check_piece_taken_on_move(move):
+def is_check(move):
+    """check if move captured a piece"""
+    if "+" in move:
+        return True
+    else:
+        return False
+
+def is_capture(move):
     """check if move captured a piece"""
     if "x" in move:
         return True

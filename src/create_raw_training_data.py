@@ -64,8 +64,9 @@ if __name__ == "__main__":
     FEATURES["bishops_attacked"] = FEN_DF.apply(feat.num_piece_attacked, axis=1, args=(3,))
     FEATURES["rooks_attacked"] = FEN_DF.apply(feat.num_piece_attacked, axis=1, args=(4,))
     FEATURES["queens_attacked"] = FEN_DF.apply(feat.num_piece_attacked, axis=1, args=(5,))
-    FEATURES["is_capture"] = FEN_DF["move"].map(feat.check_piece_taken_on_move)
     FEATURES["pieces_on_board"] = FEN_DF["tactic_fen"].map(feat.get_number_pieces)
+    FEATURES["is_capture"] = FEN_DF["move"].map(feat.is_capture)
+    FEATURES["is_check"] = FEN_DF["move"].map(feat.is_check)
 
     FEATURES["tactic"] = FEN_DF["Tactic"]
 
