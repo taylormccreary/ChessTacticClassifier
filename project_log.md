@@ -1,3 +1,19 @@
+## By 11/20/17:
+- Taylor
+    1. get Jupyter notebook working again (and updated)
+- Shane
+    1. use cross validation to see how good the decision tree model is
+- Ryan
+    1. Data Visualization
+
+## By 11/17/17:
+- Taylor
+    1. display decision tree in Jupyter notebook: https://graphviz.readthedocs.io/en/stable/manual.html
+- Shane
+    1. use cross validation to see how good the decision tree model is
+- Ryan
+    1. Data Visualization
+
 ## By 11/13/17:
 - Taylor
     1. Get Jupyter notebook up and running

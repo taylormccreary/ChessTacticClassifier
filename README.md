@@ -60,12 +60,6 @@ To improve their skills, many chess players practice simple chess puzzles of one
 -Adam: attacked piece is defended
 
 ### Week 7
-- Taylor
-    1. display decision tree in Jupyter notebook: https://graphviz.readthedocs.io/en/stable/manual.html
-- Shane
-    1. use cross validation to see how good the decision tree model is
-- Ryan
-    1. Data Visualization
 - Design models, UI design
 
 ### Week 8

@@ -25,7 +25,7 @@ if __name__ == "__main__":
 
     # Step 1:
     # Scrape urls from chess.com
-    NUM_TACTICS = 20 # set how many tactics of each type to scrape
+    NUM_TACTICS = 100 # set how many tactics of each type to scrape
     FORKS = url.get_n_tactic_urls(11, NUM_TACTICS)
     SKEWERS = url.get_n_tactic_urls(26, NUM_TACTICS)
     TRAPPED = url.get_n_tactic_urls(29, NUM_TACTICS)
