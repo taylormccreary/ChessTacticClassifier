@@ -61,6 +61,9 @@ To improve their skills, many chess players practice simple chess puzzles of one
 
 ### Week 7
 - Design models, UI design
+- 30 each: 1' 34" @ Starbucks
+- 60, 30, 30: 2' 2" @ Starbucks
+- 60 each: 3' 49" @ Starbucks, error in getting skewers
 
 ### Week 8
 - Polishing project
