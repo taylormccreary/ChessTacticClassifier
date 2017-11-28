@@ -30,6 +30,7 @@ if __name__ == "__main__":
     SKEWERS = url.get_n_tactic_urls(26, NUM_TACTICS)
     TRAPPED = url.get_n_tactic_urls(29, NUM_TACTICS)
 
+
     # Step 2:
     # Scrape FEN, first move, second move, color from each url
     FEN_DATA = []

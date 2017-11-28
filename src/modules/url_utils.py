@@ -32,6 +32,7 @@ def get_tactic_urls(tactic_id, page):
     table_of_tactics = soup.find("table").find_all('tr')
     counter = 0
     url_list = []
+
     while counter < len(table_of_tactics):
         t_url = table_of_tactics[counter].find('a').get('href')
         t_rating = int(table_of_tactics[counter].find_all('td')[1].get_text())
@@ -39,6 +40,11 @@ def get_tactic_urls(tactic_id, page):
         if t_rating < 1200 and t_moves < 2:
             url_list.append(t_url)
         counter += 1
+
+    # check for empty page
+    if len(table_of_tactics) == 0:
+        return -1
+
     return url_list
 
 def get_n_tactic_urls(tactic_id, n_urls):
@@ -47,7 +53,11 @@ def get_n_tactic_urls(tactic_id, n_urls):
     url_list = []
     while len(url_list) < n_urls:
         #url_list.append(get_tactic_urls(tactic_id, count))
-        url_list = url_list + get_tactic_urls(tactic_id, count)
+        new_urls = get_tactic_urls(tactic_id, count)
+        if new_urls == -1:
+            return url_list
+        url_list = url_list + new_urls
+        #url_list = url_list + get_tactic_urls(tactic_id, count)
         count += 1
     #return np.array(url_list).flatten()
     return url_list
